@@ -222,6 +222,8 @@ def start_cards(bl, sections):
         elif cur:
             cur["items"].append((kind, val))
     for g in gi:
+        if not g["items"]:
+            continue
         out.append(f'<div class="block plain"><h2>{inline_html(g["title"])}</h2>' + "".join(block_html(a, b, "plain") for a, b in g["items"]) + "</div>")
     return "\n".join(out)
 
