@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Памятка менеджера: Wazzup и CRM</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2322a06b'/%3E%3Cpath d='M9 10h14M9 16h14M9 22h9' stroke='white' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
+<style>
+:root{--bg:#f6f7f9;--panel:#ffffff;--ink:#1c2128;--muted:#5d6672;--line:#e3e6ea;--accent:#1f9d6a;--accent-soft:#e6f5ee;--warn:#b54708;--warn-soft:#fff4e5;--code:#f1f3f5;--shadow:0 1px 2px rgba(16,24,40,.06),0 1px 3px rgba(16,24,40,.08)}
+@media (prefers-color-scheme:dark){:root{--bg:#0f1316;--panel:#171c21;--ink:#e7eaee;--muted:#9aa4af;--line:#2a3138;--accent:#3cc88e;--accent-soft:#16301f;--warn:#f5a25d;--warn-soft:#33240f;--code:#20262c;--shadow:none}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+a{color:var(--accent)}
+.layout{display:grid;grid-template-columns:290px 1fr;min-height:100vh}
+aside{position:sticky;top:0;height:100vh;overflow:auto;background:var(--panel);border-right:1px solid var(--line);padding:20px 14px}
+.brand{display:flex;gap:10px;align-items:center;font-weight:700;font-size:17px;margin:0 6px 16px}
+.brand i{width:30px;height:30px;border-radius:8px;background:var(--accent);display:inline-block;flex:none}
+.search{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);font-size:15px;margin-bottom:12px}
+nav a{display:block;padding:9px 12px;border-radius:9px;color:var(--ink);text-decoration:none;font-size:15px;margin:1px 0}
+nav a:hover{background:var(--bg)}
+nav a.on{background:var(--accent-soft);color:var(--accent);font-weight:600}
+nav a.hide{display:none}
+.hint{color:var(--muted);font-size:13px;margin:14px 8px 0}
+main{padding:32px clamp(16px,4vw,56px) 80px;max-width:980px;width:100%}
+section{display:none;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:28px clamp(16px,3vw,36px);box-shadow:var(--shadow)}
+section.on{display:block}
+h1{font-size:clamp(24px,3vw,30px);line-height:1.2;margin:0 0 12px}
+h1+p{font-size:17px;color:var(--muted)}
+h2{font-size:20px;margin:30px 0 10px;padding-top:6px}
+p{margin:10px 0}
+ul,ol{padding-left:22px}
+li{margin:6px 0}
+p.example{background:var(--warn-soft);border-left:4px solid var(--warn);padding:12px 14px;border-radius:8px}
+.tw{overflow-x:auto;margin:12px 0}
+table{border-collapse:collapse;width:100%;font-size:15px}
+th,td{border-bottom:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top}
+th{background:var(--bg);font-weight:600;font-size:14px;color:var(--muted)}
+tbody tr:hover{background:var(--bg)}
+figure{margin:16px 0;text-align:center}
+figure img{max-width:100%;max-height:560px;border:1px solid var(--line);border-radius:10px;background:#fff}
+figcaption{color:var(--muted);font-size:13px;margin-top:6px}
+.tpl{position:relative;margin:12px 0}
+.tpl pre{background:var(--code);border-radius:10px;padding:14px 16px;margin:0;white-space:pre-wrap;font:14px/1.5 ui-monospace,Menlo,Consolas,monospace}
+.copy{position:absolute;top:8px;right:8px;border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:8px;padding:5px 10px;font-size:13px;cursor:pointer}
+.copy.done{color:var(--accent);border-color:var(--accent)}
+ul.check{list-style:none;padding-left:0}
+ul.check label{display:flex;gap:10px;align-items:flex-start;cursor:pointer}
+ul.check input{width:18px;height:18px;margin-top:3px;accent-color:var(--accent);flex:none}
+.top{display:none}
+.pager{display:flex;justify-content:space-between;gap:12px;margin-top:18px}
+.pager a{flex:1;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--panel);text-decoration:none;color:var(--ink);font-size:14px}
+.pager a span{display:block;color:var(--muted);font-size:12px}
+.pager a.next{text-align:right}
+.pager a[hidden]{visibility:hidden;display:block}
+@media (max-width:860px){
+ .layout{grid-template-columns:1fr}
+ .top{display:flex;position:sticky;top:0;z-index:5;align-items:center;gap:10px;padding:12px 16px;background:var(--panel);border-bottom:1px solid var(--line);font-weight:700}
+ .top button{border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:9px;padding:7px 12px;font-size:15px}
+ aside{display:none;position:fixed;inset:57px 0 0 0;height:auto;z-index:4;border-right:0}
+ body.menu aside{display:block}
+ main{padding:16px 16px 60px}
+ section{padding:20px 16px;border-radius:12px}
+ table,thead,tbody,tr,td{display:block}
+ thead{display:none}
+ tr{border:1px solid var(--line);border-radius:10px;margin:10px 0;padding:6px 0}
+ td{border:0;padding:6px 12px}
+ td::before{content:attr(data-label);display:block;font-size:12px;color:var(--muted)}
+}
+</style>
+</head>
+<body>
+<div class="top"><button type="button" id="menuBtn">☰ Разделы</button><span id="topTitle">Памятка менеджера</span></div>
+<div class="layout">
+<aside>
+ <div class="brand"><i></i>Памятка менеджера</div>
+ <input class="search" id="q" type="search" placeholder="Поиск: спам, дубль, тариф…" autocomplete="off">
+ <nav id="nav">
+{{NAV}}
+ </nav>
+ <p class="hint">Не нашёл ответ — пиши в чат «срм/маркетинг обращения/дубли» по шаблону из раздела «Как писать в чат».</p>
+</aside>
+<main>
+{{BODY}}
+<div class="pager"><a id="prev" href="#"><span>Назад</span><b></b></a><a id="next" class="next" href="#"><span>Дальше</span><b></b></a></div>
+</main>
+</div>
+<script>
+const secs=[...document.querySelectorAll('section')], links=[...document.querySelectorAll('#nav a')];
+function show(id){
+  const s=secs.find(x=>x.id===id)||secs[0]; secs.forEach(x=>x.classList.toggle('on',x===s));
+  links.forEach(a=>a.classList.toggle('on',a.dataset.nav===s.id));
+  document.getElementById('topTitle').textContent=s.dataset.title;
+  const i=secs.indexOf(s), p=secs[i-1], n=secs[i+1], P=document.getElementById('prev'), N=document.getElementById('next');
+  P.hidden=!p; N.hidden=!n;
+  if(p){P.href='#'+p.id;P.querySelector('b').textContent=p.dataset.title}
+  if(n){N.href='#'+n.id;N.querySelector('b').textContent=n.dataset.title}
+  document.body.classList.remove('menu'); window.scrollTo(0,0);
+}
+window.addEventListener('hashchange',()=>show(location.hash.slice(1)));
+show(location.hash.slice(1));
+document.getElementById('menuBtn').onclick=()=>document.body.classList.toggle('menu');
+document.getElementById('q').addEventListener('input',e=>{
+  const q=e.target.value.trim().toLowerCase();
+  links.forEach(a=>{const s=secs.find(x=>x.id===a.dataset.nav); a.classList.toggle('hide', !!q && !s.textContent.toLowerCase().includes(q));});
+});
+document.querySelectorAll('.copy').forEach(b=>b.onclick=async()=>{
+  try{await navigator.clipboard.writeText(b.previousElementSibling.textContent); b.textContent='Скопировано'; b.classList.add('done'); setTimeout(()=>{b.textContent='Скопировать'; b.classList.remove('done')},1500)}catch(e){}
+});
+</script>
+</body>
+</html>
