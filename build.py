@@ -318,10 +318,17 @@ def build_docx(sections):
                 doc.add_heading(val, level=2)
             elif kind == "p":
                 p = doc.add_paragraph(); add_inline(p, val)
-            elif kind in ("ul", "ol", "check"):
-                style = "List Number" if kind == "ol" else "List Bullet"
+            elif kind == "ol":
+                start = OL_START.get(id(val), 1)
+                for k, x in enumerate(val):
+                    p = doc.add_paragraph()
+                    p.paragraph_format.left_indent = Cm(0.9)
+                    p.paragraph_format.first_line_indent = Cm(-0.6)
+                    r = p.add_run(f"{start + k}. "); r.bold = True
+                    add_inline(p, x)
+            elif kind in ("ul", "check"):
                 for x in val:
-                    p = doc.add_paragraph(style=style)
+                    p = doc.add_paragraph(style="List Bullet")
                     if kind == "check":
                         p.add_run("☐ ")
                     add_inline(p, x)
