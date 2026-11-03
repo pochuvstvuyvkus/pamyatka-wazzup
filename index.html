@@ -2,268 +2,352 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0f7a52">
 <title>Памятка менеджера: Wazzup и CRM</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2322a06b'/%3E%3Cpath d='M9 10h14M9 16h14M9 22h9' stroke='white' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%230f7a52'/%3E%3Cpath d='M9 11h14M9 16h14M9 21h9' stroke='white' stroke-width='2.6' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#f6f7f9;--panel:#ffffff;--ink:#1c2128;--muted:#5d6672;--line:#e3e6ea;--accent:#1f9d6a;--accent-soft:#e6f5ee;--warn:#b54708;--warn-soft:#fff4e5;--code:#f1f3f5;--shadow:0 1px 2px rgba(16,24,40,.06),0 1px 3px rgba(16,24,40,.08)}
-@media (prefers-color-scheme:dark){:root{--bg:#0f1316;--panel:#171c21;--ink:#e7eaee;--muted:#9aa4af;--line:#2a3138;--accent:#3cc88e;--accent-soft:#16301f;--warn:#f5a25d;--warn-soft:#33240f;--code:#20262c;--shadow:none}}
+:root{
+ --bg:#f4f6f5;--panel:#fff;--panel2:#fafbfa;--ink:#14201b;--ink2:#3c4a44;--muted:#6b7a73;--line:#e2e8e5;
+ --accent:#0f7a52;--accent2:#12a06b;--accent-soft:#e3f4ec;
+ --warn:#b45309;--warn-soft:#fff6e9;--warn-line:#f6d7a8;
+ --chat:#2563eb;--chat-soft:#e9f0ff;
+ --code:#f2f5f3;--shadow:0 1px 2px rgba(20,32,27,.04),0 8px 24px rgba(20,32,27,.06);--r:18px
+}
+@media (prefers-color-scheme:dark){:root{
+ --bg:#0d1210;--panel:#141b18;--panel2:#18211d;--ink:#e8eeeb;--ink2:#c3cec9;--muted:#8d9b95;--line:#26312c;
+ --accent:#3fd39a;--accent2:#3fd39a;--accent-soft:#143024;
+ --warn:#f3a95a;--warn-soft:#2b2114;--warn-line:#4d3a1d;
+ --chat:#7aa7ff;--chat-soft:#17223b;--code:#1b2420;--shadow:none}}
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
-a{color:var(--accent)}
-.layout{display:grid;grid-template-columns:290px 1fr;min-height:100vh}
-aside{position:sticky;top:0;height:100vh;overflow:auto;background:var(--panel);border-right:1px solid var(--line);padding:20px 14px}
-.brand{display:flex;gap:10px;align-items:center;font-weight:700;font-size:17px;margin:0 6px 16px}
-.brand i{width:30px;height:30px;border-radius:8px;background:var(--accent);display:inline-block;flex:none}
-.search{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);font-size:15px;margin-bottom:12px}
-nav a{display:block;padding:9px 12px;border-radius:9px;color:var(--ink);text-decoration:none;font-size:15px;margin:1px 0}
-nav a:hover{background:var(--bg)}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-underline-offset:3px}
+svg.ico{width:20px;height:20px;flex:none}
+.layout{display:grid;grid-template-columns:300px minmax(0,1fr);min-height:100vh}
+/* sidebar */
+aside{position:sticky;top:0;height:100vh;overflow:auto;background:var(--panel);border-right:1px solid var(--line);padding:22px 16px 28px;display:flex;flex-direction:column}
+.brand{display:flex;gap:12px;align-items:center;margin:2px 6px 20px;text-decoration:none;color:var(--ink)}
+.logo{width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center;color:#fff;flex:none}
+.logo svg{width:22px;height:22px}
+.brand b{display:block;font-size:16px;line-height:1.2}
+.brand small{color:var(--muted);font-size:12.5px}
+.sbox{position:relative;margin-bottom:14px}
+.sbox svg{position:absolute;left:12px;top:50%;width:17px;height:17px;transform:translateY(-50%);color:var(--muted)}
+.search{width:100%;padding:11px 12px 11px 38px;border:1px solid var(--line);border-radius:12px;background:var(--panel2);color:var(--ink);font:inherit;font-size:14.5px}
+.search:focus,#q2:focus{outline:2px solid var(--accent);outline-offset:1px}
+nav a{display:flex;gap:11px;align-items:center;padding:9px 11px;border-radius:11px;color:var(--ink2);text-decoration:none;font-size:14.5px;font-weight:500;margin:2px 0;transition:background .15s}
+nav a:hover{background:var(--panel2)}
 nav a.on{background:var(--accent-soft);color:var(--accent);font-weight:600}
 nav a.hide{display:none}
-.hint{color:var(--muted);font-size:13px;margin:14px 8px 0}
-main{padding:32px clamp(16px,4vw,56px) 80px;max-width:980px;width:100%}
-section{scroll-margin-top:70px;display:none;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:28px clamp(16px,3vw,36px);box-shadow:var(--shadow)}
+.side-foot{margin-top:auto;padding:14px 10px 0;color:var(--muted);font-size:12.5px;line-height:1.5}
+/* main */
+main{padding:36px clamp(16px,4vw,56px) 80px;width:100%;max-width:960px}
+section{display:none}
 section.on{display:block}
-h1{font-size:clamp(24px,3vw,30px);line-height:1.2;margin:0 0 12px}
-h1+p{font-size:17px;color:var(--muted)}
-h2{font-size:20px;margin:30px 0 10px;padding-top:6px}
+.sec-head{display:flex;gap:16px;align-items:center;margin-bottom:10px}
+.sec-ico{width:52px;height:52px;border-radius:15px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;flex:none}
+.sec-ico svg{width:26px;height:26px}
+.eyebrow{font-size:12.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+h1{font-size:clamp(25px,3.2vw,34px);line-height:1.15;letter-spacing:-.02em;margin:2px 0 0;font-weight:800}
+.lead{font-size:18px;line-height:1.55;color:var(--ink2);margin:14px 0 24px;max-width:720px}
+.block{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:22px clamp(16px,2.6vw,28px);margin:16px 0;box-shadow:var(--shadow)}
+.block>:first-child{margin-top:0}.block>:last-child{margin-bottom:0}
+h2{display:flex;flex-wrap:wrap;gap:10px;align-items:center;font-size:19px;letter-spacing:-.01em;margin:0 0 12px;font-weight:700}
+.tag{font-size:12px;font-weight:600;padding:3px 9px;border-radius:999px;letter-spacing:.01em}
+.tag.self{background:var(--accent-soft);color:var(--accent)}
+.tag.admin{background:var(--warn-soft);color:var(--warn);border:1px solid var(--warn-line)}
+.block.warn{background:var(--warn-soft);border-color:var(--warn-line)}
+.block.do{border-top:4px solid var(--accent)}
 p{margin:10px 0}
-ul,ol{padding-left:22px}
-li{margin:6px 0}
-p.example{background:var(--warn-soft);border-left:4px solid var(--warn);padding:12px 14px;border-radius:8px}
-.tw{overflow-x:auto;margin:12px 0}
+ul,ol{padding-left:22px;margin:10px 0}
+li{margin:7px 0}
+li::marker{color:var(--muted)}
+ol.steps{list-style:none;counter-reset:s;padding-left:0}
+ol.steps>li{counter-increment:s;position:relative;padding:2px 0 14px 46px;margin:0}
+ol.steps>li::before{content:counter(s);position:absolute;left:0;top:0;width:30px;height:30px;border-radius:50%;background:var(--accent);color:#fff;font-weight:700;font-size:14px;display:grid;place-items:center}
+@media (prefers-color-scheme:dark){ol.steps>li::before{color:#08130e}}
+ol.steps>li:not(:last-child)::after{content:"";position:absolute;left:14.5px;top:34px;bottom:2px;width:1px;background:var(--line)}
+blockquote.example{margin:16px 0;padding:14px 16px;border-radius:14px;background:var(--chat-soft);border:1px solid transparent}
+.ex-label{display:flex;gap:8px;align-items:center;font-weight:600;font-size:13.5px;color:var(--chat)}
+.ex-ico{width:17px;height:17px}
+blockquote.example p{margin:6px 0 0}
+p.src{font-size:13px;color:var(--muted)}
+/* tables */
+.tw{overflow-x:auto;margin:12px 0;border:1px solid var(--line);border-radius:14px}
 table{border-collapse:collapse;width:100%;font-size:15px}
-th,td{border-bottom:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top}
-th{background:var(--bg);font-weight:600;font-size:14px;color:var(--muted)}
-tbody tr:hover{background:var(--bg)}
-figure{margin:16px 0;text-align:center}
-figure img{max-width:100%;max-height:560px;border:1px solid var(--line);border-radius:10px;background:#fff}
-figcaption{color:var(--muted);font-size:13px;margin-top:6px}
-.tpl{position:relative;margin:12px 0}
-.tpl pre{background:var(--code);border-radius:10px;padding:14px 16px;margin:0;white-space:pre-wrap;font:14px/1.5 ui-monospace,Menlo,Consolas,monospace}
-.copy{position:absolute;top:8px;right:8px;border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:8px;padding:5px 10px;font-size:13px;cursor:pointer}
+th,td{padding:11px 14px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+tbody tr:last-child td{border-bottom:0}
+th{background:var(--panel2);font-weight:600;font-size:13px;color:var(--muted)}
+.pill{display:inline-block;font-size:12.5px;font-weight:600;padding:3px 10px;border-radius:999px;white-space:nowrap}
+.pill.self{background:var(--accent-soft);color:var(--accent)}
+.pill.admin{background:var(--warn-soft);color:var(--warn)}
+.pill.chat{background:var(--chat-soft);color:var(--chat)}
+/* figures */
+figure{margin:16px 0}
+.zoom{display:block;width:100%;padding:0;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff;cursor:zoom-in}
+.zoom img{display:block;width:100%;height:auto;max-height:520px;object-fit:contain;background:#fff}
+figcaption{color:var(--muted);font-size:13px;margin-top:8px;text-align:center}
+.lightbox{position:fixed;inset:0;background:rgba(5,10,8,.86);display:none;place-items:center;z-index:50;padding:20px;cursor:zoom-out}
+.lightbox.on{display:grid}
+.lightbox img{max-width:100%;max-height:100%;border-radius:10px;background:#fff}
+/* templates */
+.tpl{margin:12px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.tpl-head{display:flex;justify-content:space-between;align-items:center;padding:8px 10px 8px 14px;background:var(--panel2);border-bottom:1px solid var(--line);font-size:12.5px;color:var(--muted);font-weight:600}
+.tpl pre{margin:0;padding:14px 16px;white-space:pre-wrap;font:14px/1.55 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:var(--code);color:var(--ink)}
+.copy{border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:9px;padding:6px 12px;font:inherit;font-size:13px;font-weight:600;cursor:pointer}
 .copy.done{color:var(--accent);border-color:var(--accent)}
-ul.check{list-style:none;padding-left:0}
-ul.check label{display:flex;gap:10px;align-items:flex-start;cursor:pointer}
-ul.check input{width:18px;height:18px;margin-top:3px;accent-color:var(--accent);flex:none}
-.top{display:none}
-.pager{display:flex;justify-content:space-between;gap:12px;margin-top:18px}
-.pager a{flex:1;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--panel);text-decoration:none;color:var(--ink);font-size:14px}
-.pager a span{display:block;color:var(--muted);font-size:12px}
+ul.check{list-style:none;padding:0}
+ul.check li{margin:4px 0}
+ul.check label{display:flex;gap:12px;align-items:flex-start;cursor:pointer;padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:var(--panel2)}
+ul.check input{width:20px;height:20px;margin:2px 0 0;accent-color:var(--accent);flex:none}
+ul.check input:checked+span{color:var(--muted);text-decoration:line-through}
+/* start page */
+.search-hero{position:relative;margin:4px 0 26px}
+.search-hero svg{position:absolute;left:18px;top:50%;width:22px;height:22px;transform:translateY(-50%);color:var(--muted)}
+#q2{width:100%;padding:17px 18px 17px 52px;font:inherit;font-size:17px;border:1px solid var(--line);border-radius:16px;background:var(--panel);color:var(--ink);box-shadow:var(--shadow)}
+.group{margin:0 0 26px}
+.group-head{display:flex;gap:10px;align-items:baseline;margin:0 2px 12px}
+.group-head b{font-size:17px}
+.group-head span:last-child{color:var(--muted);font-size:14px}
+.dot{width:10px;height:10px;border-radius:50%;display:inline-block;transform:translateY(-1px)}
+.dot.self{background:var(--accent2)}.dot.chat{background:var(--chat)}.dot.admin{background:var(--warn)}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.card{display:flex;gap:14px;padding:16px;border-radius:16px;background:var(--panel);border:1px solid var(--line);text-decoration:none;color:var(--ink);box-shadow:var(--shadow);transition:transform .15s,border-color .15s}
+.card:hover{transform:translateY(-2px);border-color:var(--accent)}
+.card-ico{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;flex:none;background:var(--accent-soft);color:var(--accent)}
+.card.chat .card-ico{background:var(--chat-soft);color:var(--chat)}
+.card.admin .card-ico{background:var(--warn-soft);color:var(--warn)}
+.card-body{display:flex;flex-direction:column;gap:6px;min-width:0}
+.card-sit{font-weight:600;font-size:15px;line-height:1.4}
+.card-sec{font-size:13.5px;color:var(--muted)}
+.note{font-size:12.5px;color:var(--accent)}
+.results{display:none;margin:-14px 0 26px}
+.results.on{display:block}
+.results a{display:flex;gap:12px;align-items:center;padding:12px 14px;margin:6px 0;border-radius:12px;background:var(--panel);border:1px solid var(--line);text-decoration:none;color:var(--ink);font-weight:600}
+.results .none{color:var(--muted);padding:6px 4px}
+.hidden-by-search{display:none}
+/* pager */
+.pager{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px}
+.pager a{padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:var(--panel);text-decoration:none;color:var(--ink);font-weight:600;font-size:15px}
+.pager a span{display:block;color:var(--muted);font-size:12.5px;font-weight:500;margin-bottom:2px}
 .pager a.next{text-align:right}
 .pager a[hidden]{visibility:hidden;display:block}
-@media (max-width:860px){
+/* mobile */
+.top{display:none}
+@media (max-width:880px){
  .layout{grid-template-columns:1fr}
- .top{display:flex;position:sticky;top:0;z-index:5;align-items:center;gap:10px;padding:12px 16px;background:var(--panel);border-bottom:1px solid var(--line);font-weight:700}
- .top button{border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:9px;padding:7px 12px;font-size:15px}
- aside{display:none;position:fixed;inset:57px 0 0 0;height:auto;z-index:4;border-right:0}
- body.menu aside{display:block}
- main{padding:16px 16px 60px}
- section{padding:20px 16px;border-radius:12px}
+ .top{display:flex;position:sticky;top:0;z-index:20;align-items:center;gap:12px;padding:10px 16px;padding-top:max(10px,env(safe-area-inset-top));background:var(--panel);border-bottom:1px solid var(--line)}
+ .top button{display:flex;gap:6px;align-items:center;border:1px solid var(--line);background:var(--panel2);color:var(--ink);border-radius:11px;padding:8px 12px;font:inherit;font-size:14px;font-weight:600}
+ .top b{font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+ aside{display:none;position:fixed;inset:57px 0 0 0;height:auto;z-index:19;border-right:0}
+ body.menu aside{display:flex}
+ main{padding:18px 16px 60px}
+ .lead{font-size:16.5px}
+ .sec-ico{width:44px;height:44px}
+ .block{padding:18px 16px;border-radius:16px}
+ .tw{border:0;overflow:visible}
  table,thead,tbody,tr,td{display:block}
  thead{display:none}
- tr{border:1px solid var(--line);border-radius:10px;margin:10px 0;padding:6px 0}
- td{border:0;padding:6px 12px}
- td::before{content:attr(data-label);display:block;font-size:12px;color:var(--muted)}
+ tr{border:1px solid var(--line);border-radius:12px;margin:10px 0;padding:6px 0;background:var(--panel2)}
+ td{border:0!important;padding:6px 14px}
+ td::before{content:attr(data-label);display:block;font-size:12px;color:var(--muted);margin-bottom:2px}
+ .cards{grid-template-columns:1fr}
+ .pager{grid-template-columns:1fr}
 }
 </style>
 </head>
 <body>
-<div class="top"><button type="button" id="menuBtn">☰ Разделы</button><span id="topTitle">Памятка менеджера</span></div>
+<div class="top"><button type="button" id="menuBtn"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>Разделы</button><b id="topTitle">Памятка менеджера</b></div>
 <div class="layout">
 <aside>
- <div class="brand"><i></i>Памятка менеджера</div>
- <input class="search" id="q" type="search" placeholder="Поиск: спам, дубль, тариф…" autocomplete="off">
+ <a class="brand" href="#start"><span class="logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 8h12M6 12h12M6 16h7"/></svg></span><span><b>Памятка менеджера</b><small>Wazzup и CRM · SILENKO</small></span></a>
+ <div class="sbox"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input class="search" id="q" type="search" placeholder="Поиск по памятке" autocomplete="off"></div>
  <nav id="nav">
-<a href="#start" data-nav="start">Главная</a>
-<a href="#wazzup" data-nav="wazzup">1. Wazzup: каналы и статусы</a>
-<a href="#max" data-nav="max">2. MAX не отправляет</a>
-<a href="#tg" data-nav="tg">3. Telegram и WhatsApp</a>
-<a href="#chats" data-nav="chats">4. Чаты и приложение</a>
-<a href="#files" data-nav="files">5. Файлы и видео</a>
-<a href="#nonumber" data-nav="nonumber">6. Лид без номера</a>
-<a href="#spam" data-nav="spam">7. Нецелевые и спам</a>
-<a href="#dupes" data-nav="dupes">8. Дубли</a>
-<a href="#calls" data-nav="calls">9. Звонки, очередь, смена</a>
-<a href="#admin" data-nav="admin">10. Только администратор</a>
-<a href="#howto" data-nav="howto">11. Как писать в чат</a>
+<a href="#start" data-nav="start"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg><span>Главная</span></a>
+<a href="#wazzup" data-nav="wazzup"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.9A8 8 0 1 1 21 12z"/></svg><span>1. Wazzup: каналы и статусы</span></a>
+<a href="#max" data-nav="max"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg><span>2. MAX не отправляет</span></a>
+<a href="#tg" data-nav="tg"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 4L3 11l6 2 2 6 3-4 5 4z"/><path d="M9 13l7-5"/></svg><span>3. Telegram и WhatsApp</span></a>
+<a href="#chats" data-nav="chats"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H8l-4 4z"/><path d="M8 9h8M8 12h5"/></svg><span>4. Чаты и приложение</span></a>
+<a href="#files" data-nav="files"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M10 9l5 3-5 3z"/></svg><span>5. Файлы и видео</span></a>
+<a href="#nonumber" data-nav="nonumber"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a1 1 0 0 1-1 1A16 16 0 0 1 4 5a1 1 0 0 1 1-1z"/><path d="M3 3l18 18"/></svg><span>6. Лид без номера</span></a>
+<a href="#spam" data-nav="spam"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/></svg><span>7. Нецелевые и спам</span></a>
+<a href="#dupes" data-nav="dupes"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3"/></svg><span>8. Дубли</span></a>
+<a href="#calls" data-nav="calls"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2M9 2h6"/></svg><span>9. Звонки, очередь, смена</span></a>
+<a href="#admin" data-nav="admin"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg><span>10. Только администратор</span></a>
+<a href="#howto" data-nav="howto"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13 7l4 4"/></svg><span>11. Как писать в чат</span></a>
  </nav>
- <p class="hint">Не нашёл ответ — пиши в чат «срм/маркетинг обращения/дубли» по шаблону из раздела «Как писать в чат».</p>
+ <div class="side-foot">Не нашёл ответ? Напиши в чат «срм/маркетинг обращения/дубли» по шаблону из раздела 11.</div>
 </aside>
 <main>
-<section id="start" data-title="Главная"><h1>Памятка менеджера: Wazzup и CRM</h1>
-<p>Большинство вопросов в чате «срм/маркетинг обращения/дубли» менеджер решает сам за 1–2 минуты. Найди свою ситуацию в таблице и открой раздел: там шаги, скриншоты и примеры из чата.</p>
-<h2>Найди свою ситуацию</h2>
-<div class="tw"><table><thead><tr><th>Ситуация</th><th>Кто решает</th><th>Раздел</th></tr></thead><tbody><tr><td data-label="Ситуация">MAX: «не пропускает сообщение из-за подозрения на спам»</td><td data-label="Кто решает">Сам</td><td data-label="Раздел"><a href="#max" data-nav="max">MAX не отправляет</a></td></tr><tr><td data-label="Ситуация">«Клиент скрыл свой номер», «Мы не нашли такого контакта»</td><td data-label="Кто решает">Сам</td><td data-label="Раздел"><a href="#max" data-nav="max">MAX не отправляет</a></td></tr><tr><td data-label="Ситуация">Не получается написать первым в Telegram, на номере нет WhatsApp</td><td data-label="Кто решает">Сам</td><td data-label="Раздел"><a href="#tg" data-nav="tg">Telegram и WhatsApp</a></td></tr><tr><td data-label="Ситуация">Пропал чат с клиентом, не создаётся диалог</td><td data-label="Кто решает">Сам</td><td data-label="Раздел"><a href="#chats" data-nav="chats">Чаты и приложение</a></td></tr><tr><td data-label="Ситуация">Выкинуло из приложения Wazzup, не приходит СМС</td><td data-label="Кто решает">Сам</td><td data-label="Раздел"><a href="#chats" data-nav="chats">Чаты и приложение</a></td></tr><tr><td data-label="Ситуация">Видеоосмотр не отправляется</td><td data-label="Кто решает">Сам</td><td data-label="Раздел"><a href="#files" data-nav="files">Файлы и видео</a></td></tr><tr><td data-label="Ситуация">В лиде нет номера, «вызов запрещён»</td><td data-label="Кто решает">Сам</td><td data-label="Раздел"><a href="#nonumber" data-nav="nonumber">Лид без номера</a></td></tr><tr><td data-label="Ситуация">«Заявку не оставлял», ребёнок, реклама, вакансия</td><td data-label="Кто решает">Сам</td><td data-label="Раздел"><a href="#spam" data-nav="spam">Нецелевые и спам</a></td></tr><tr><td data-label="Ситуация">Дубль сделки</td><td data-label="Кто решает">Сам, если оригинал доступен</td><td data-label="Раздел"><a href="#dupes" data-nav="dupes">Дубли</a></td></tr><tr><td data-label="Ситуация">Забыл завершить смену, вопросы по очереди</td><td data-label="Кто решает">Сам</td><td data-label="Раздел"><a href="#calls" data-nav="calls">Звонки, очередь, смена</a></td></tr><tr><td data-label="Ситуация">Взял входящий, а сделки нет; чей клиент</td><td data-label="Кто решает">Чат</td><td data-label="Раздел"><a href="#calls" data-nav="calls">Звонки, очередь, смена</a></td></tr><tr><td data-label="Ситуация">«Закончились диалоги», «Канал не в подписке», номер в бане, нет прав</td><td data-label="Кто решает">Администратор</td><td data-label="Раздел"><a href="#admin" data-nav="admin">Только администратор</a></td></tr></tbody></table></div>
-<h2>Ещё пригодится</h2>
-<ul><li>Что такое Wazzup, где чаты, что значит статус канала: <a href="#wazzup" data-nav="wazzup">Wazzup: каналы и статусы</a></li><li>Как написать в чат, чтобы ответили быстро, и кого отмечать: <a href="#howto" data-nav="howto">Как писать в чат</a></li></ul>
-<h2>Три правила</h2>
-<ol><li>Сначала шаги из раздела, потом чат.</li><li>В чат одно сообщение: ссылка на сделку + что случилось + скриншот.</li><li>Спам и нецелевые закрываешь сам, в чат не пишешь.</li></ol></section>
-<section id="wazzup" data-title="1. Wazzup: каналы и статусы"><h1>Wazzup: где чаты, каналы и статусы</h1>
-<p>Wazzup соединяет наши номера в MAX, Telegram и WhatsApp с Битрикс24. Вся переписка с клиентом идёт через него и сохраняется в сделке.</p>
-<h2>Где чаты</h2>
-<ul><li><strong>Все твои чаты:</strong> кнопка Wazzup на левой панели Битрикс24.</li><li><strong>Чат с одним клиентом:</strong> открой сделку → вкладка WAZZUP вверху карточки.</li><li><strong>На телефоне:</strong> приложение Wazzup, там те же чаты.</li></ul>
-<figure><a href="img/wazzup_vybor_kanala.png" target="_blank"><img src="img/wazzup_vybor_kanala.png" alt="Вкладка WAZZUP в сделке: слева клиент и его чаты по каналам, справа переписка" loading="lazy"></a><figcaption>Вкладка WAZZUP в сделке: слева клиент и его чаты по каналам, справа переписка</figcaption></figure>
-<p>Слева под именем клиента список «Чаты по каналам»: с каких наших номеров с ним уже переписывались. Значок у аватарки показывает мессенджер: синий кружок MAX, зелёный WhatsApp, голубой самолётик Telegram.</p>
-<h2>Каналы и номера</h2>
-<ul><li><strong>Канал</strong> = один наш аккаунт в мессенджере. Например, MAX на твоём рабочем номере или «Общий Ватсап».</li><li><strong>Свой номер</strong> есть у каждого менеджера. Пиши клиентам с него.</li><li><strong>Общие номера</strong> («Общий номер ОП», «Общий Ватсап») для случаев, когда твой номер в блоке или у клиента нет другого мессенджера. Доступ к ним даёт администратор.</li><li><strong>Несколько номеров:</strong> новый чат создаётся с приоритетного. Нужен другой — «Создать диалог» (раздел «Чаты и приложение»).</li><li>В Wazzup нет «непрочитанных», есть «неотвеченные». Диалог висит сверху, пока ты не ответишь или не нажмёшь «Отвечать не нужно».</li></ul>
-<h2>Статус канала: чей это вопрос</h2>
-<div class="tw"><table><thead><tr><th>Что видишь</th><th>Что значит</th><th>Кто решает</th></tr></thead><tbody><tr><td data-label="Что видишь">Активен</td><td data-label="Что значит">Всё работает. Отправить можно только в этом статусе</td><td data-label="Кто решает">—</td></tr><tr><td data-label="Что видишь">Подождите минутку</td><td data-label="Что значит">Временный статус</td><td data-label="Кто решает">Сам: подожди 2–3 минуты</td></tr><tr><td data-label="Что видишь">Не авторизирован</td><td data-label="Что значит">Аккаунт разлогинило, в MAX так бывает при постоянном бане</td><td data-label="Кто решает">Администратор</td></tr><tr><td data-label="Что видишь">Открыт в другом месте</td><td data-label="Что значит">Номер подключён ещё где-то</td><td data-label="Кто решает">Администратор</td></tr><tr><td data-label="Что видишь">Не оплачена подписка / Канал не в подписке</td><td data-label="Что значит">Канал выключен до оплаты или добавления в подписку</td><td data-label="Кто решает">Администратор</td></tr><tr><td data-label="Что видишь">На тарифе закончились диалоги</td><td data-label="Что значит">Нельзя начать новый диалог до смены тарифа или нового месяца</td><td data-label="Кто решает">Администратор</td></tr><tr><td data-label="Что видишь">Заблокирован</td><td data-label="Что значит">Техническая причина на стороне Wazzup</td><td data-label="Кто решает">Администратор</td></tr></tbody></table></div>
-<p>Источники: <a href="https://wazzup24.ru/help/how-to-use/channels-statuses-ru/" target="_blank" rel="noopener">Статусы каналов</a>, <a href="https://wazzup24.ru/help/bitrix24/wazzup-chats-in-bitrix24-ru/" target="_blank" rel="noopener">Где найти чаты Wazzup в Битрикс24</a>, <a href="https://wazzup24.ru/help/how-to-use/kak-ustroeny-chaty-wazzup/" target="_blank" rel="noopener">Как устроены чаты Wazzup</a>.</p></section>
-<section id="max" data-title="2. MAX не отправляет"><h1>MAX: сообщение не уходит</h1>
-<p>Ошибка про спам не всегда означает бан. Чаще всего клиент скрыл номер или у него нет нас в контактах, и это решается без администратора.</p>
-<h2>Как выглядит</h2>
-<p><strong>Ошибка 1.</strong> «Мессенджер не пропускает сообщение из-за подозрения на спам», у чата красный восклицательный знак.</p>
-<figure><a href="img/oshibka_spam.png" target="_blank"><img src="img/oshibka_spam.png" alt="Ошибка подозрения на спам в чате Wazzup" loading="lazy"></a><figcaption>Ошибка подозрения на спам в чате Wazzup</figcaption></figure>
+<section data-id="start" data-title="Главная"><header class="sec-head"><div class="sec-ico"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg></div><div><div class="eyebrow">Памятка менеджера</div><h1>Памятка менеджера: Wazzup и CRM</h1></div></header>
+<p class="lead">Большинство вопросов в чате «срм/маркетинг обращения/дубли» менеджер решает сам за 1–2 минуты. Найди свою ситуацию ниже и открой раздел: там шаги, скриншоты и примеры из чата.</p>
+<div class="search-hero"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="q2" type="search" placeholder="Что случилось? Например: спам, дубль, тариф, видео" autocomplete="off"></div>
+<div class="group"><div class="group-head"><span class="dot self"></span><b>Решаешь сам</b><span>1–2 минуты, без чата</span></div><div class="cards"><a class="card self" href="#max"><span class="card-ico"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg></span><span class="card-body"><span class="card-sit">MAX: «не пропускает сообщение из-за подозрения на спам»</span><span class="card-sec">MAX не отправляет →</span></span></a><a class="card self" href="#max"><span class="card-ico"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg></span><span class="card-body"><span class="card-sit">«Клиент скрыл свой номер», «Мы не нашли такого контакта»</span><span class="card-sec">MAX не отправляет →</span></span></a><a class="card self" href="#tg"><span class="card-ico"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 4L3 11l6 2 2 6 3-4 5 4z"/><path d="M9 13l7-5"/></svg></span><span class="card-body"><span class="card-sit">Не получается написать первым в Telegram, на номере нет WhatsApp</span><span class="card-sec">Telegram и WhatsApp →</span></span></a><a class="card self" href="#chats"><span class="card-ico"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H8l-4 4z"/><path d="M8 9h8M8 12h5"/></svg></span><span class="card-body"><span class="card-sit">Пропал чат с клиентом, не создаётся диалог</span><span class="card-sec">Чаты и приложение →</span></span></a><a class="card self" href="#chats"><span class="card-ico"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H8l-4 4z"/><path d="M8 9h8M8 12h5"/></svg></span><span class="card-body"><span class="card-sit">Выкинуло из приложения Wazzup, не приходит СМС</span><span class="card-sec">Чаты и приложение →</span></span></a><a class="card self" href="#files"><span class="card-ico"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M10 9l5 3-5 3z"/></svg></span><span class="card-body"><span class="card-sit">Видеоосмотр не отправляется</span><span class="card-sec">Файлы и видео →</span></span></a><a class="card self" href="#nonumber"><span class="card-ico"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a1 1 0 0 1-1 1A16 16 0 0 1 4 5a1 1 0 0 1 1-1z"/><path d="M3 3l18 18"/></svg></span><span class="card-body"><span class="card-sit">В лиде нет номера, «вызов запрещён»</span><span class="card-sec">Лид без номера →</span></span></a><a class="card self" href="#spam"><span class="card-ico"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/></svg></span><span class="card-body"><span class="card-sit">«Заявку не оставлял», ребёнок, реклама, вакансия</span><span class="card-sec">Нецелевые и спам →</span></span></a><a class="card self" href="#dupes"><span class="card-ico"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3"/></svg></span><span class="card-body"><span class="card-sit">Дубль сделки</span><span class="card-sec">Дубли →</span><span class="note">Сам, если оригинал доступен</span></span></a><a class="card self" href="#calls"><span class="card-ico"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2M9 2h6"/></svg></span><span class="card-body"><span class="card-sit">Забыл завершить смену, вопросы по очереди</span><span class="card-sec">Звонки, очередь, смена →</span></span></a></div></div>
+<div class="group"><div class="group-head"><span class="dot chat"></span><b>Нужен коллега</b><span>одно сообщение в чат</span></div><div class="cards"><a class="card chat" href="#calls"><span class="card-ico"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2M9 2h6"/></svg></span><span class="card-body"><span class="card-sit">Взял входящий, а сделки нет; чей клиент</span><span class="card-sec">Звонки, очередь, смена →</span></span></a></div></div>
+<div class="group"><div class="group-head"><span class="dot admin"></span><b>Только администратор</b><span>сразу в чат с отметкой</span></div><div class="cards"><a class="card admin" href="#admin"><span class="card-ico"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg></span><span class="card-body"><span class="card-sit">«Закончились диалоги», «Канал не в подписке», номер в бане, нет прав</span><span class="card-sec">Только администратор →</span></span></a></div></div>
+<div class="block plain"><h2>Найди свою ситуацию</h2></div>
+<div class="block plain"><h2>Ещё пригодится</h2><ul><li>Что такое Wazzup, где чаты, что значит статус канала: <a href="#wazzup">Wazzup: каналы и статусы</a></li><li>Как написать в чат, чтобы ответили быстро, и кого отмечать: <a href="#howto">Как писать в чат</a></li></ul></div>
+<div class="block plain"><h2>Три правила</h2><ol class="steps"><li>Сначала шаги из раздела, потом чат.</li><li>В чат одно сообщение: ссылка на сделку + что случилось + скриншот.</li><li>Спам и нецелевые закрываешь сам, в чат не пишешь.</li></ol></div></section>
+<section data-id="wazzup" data-title="1. Wazzup: каналы и статусы"><header class="sec-head"><div class="sec-ico"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.9A8 8 0 1 1 21 12z"/></svg></div><div><div class="eyebrow">Раздел 1</div><h1>Wazzup: где чаты, каналы и статусы</h1></div></header>
+<p class="lead">Wazzup соединяет наши номера в MAX, Telegram и WhatsApp с Битрикс24. Вся переписка с клиентом идёт через него и сохраняется в сделке.</p>
+<div class="block plain"><h2>Где чаты</h2><ul><li><strong>Все твои чаты:</strong> кнопка Wazzup на левой панели Битрикс24.</li><li><strong>Чат с одним клиентом:</strong> открой сделку → вкладка WAZZUP вверху карточки.</li><li><strong>На телефоне:</strong> приложение Wazzup, там те же чаты.</li></ul>
+<figure><button class="zoom" type="button" data-src="img/wazzup_vybor_kanala.png" aria-label="Увеличить"><img src="img/wazzup_vybor_kanala.png" alt="Вкладка WAZZUP в сделке: слева клиент и его чаты по каналам, справа переписка" decoding="async"></button><figcaption>Вкладка WAZZUP в сделке: слева клиент и его чаты по каналам, справа переписка</figcaption></figure>
+<p>Слева под именем клиента список «Чаты по каналам»: с каких наших номеров с ним уже переписывались. Значок у аватарки показывает мессенджер: синий кружок MAX, зелёный WhatsApp, голубой самолётик Telegram.</p></div>
+<div class="block plain"><h2>Каналы и номера</h2><ul><li><strong>Канал</strong> = один наш аккаунт в мессенджере. Например, MAX на твоём рабочем номере или «Общий Ватсап».</li><li><strong>Свой номер</strong> есть у каждого менеджера. Пиши клиентам с него.</li><li><strong>Общие номера</strong> («Общий номер ОП», «Общий Ватсап») для случаев, когда твой номер в блоке или у клиента нет другого мессенджера. Доступ к ним даёт администратор.</li><li><strong>Несколько номеров:</strong> новый чат создаётся с приоритетного. Нужен другой — «Создать диалог» (раздел «Чаты и приложение»).</li><li>В Wazzup нет «непрочитанных», есть «неотвеченные». Диалог висит сверху, пока ты не ответишь или не нажмёшь «Отвечать не нужно».</li></ul></div>
+<div class="block plain"><h2>Статус канала: чей это вопрос</h2><div class="tw"><table><thead><tr><th>Что видишь</th><th>Что значит</th><th>Кто решает</th></tr></thead><tbody><tr><td data-label="Что видишь">Активен</td><td data-label="Что значит">Всё работает. Отправить можно только в этом статусе</td><td data-label="Кто решает">—</td></tr><tr><td data-label="Что видишь">Подождите минутку</td><td data-label="Что значит">Временный статус</td><td data-label="Кто решает">Сам: подожди 2–3 минуты</td></tr><tr><td data-label="Что видишь">Не авторизирован</td><td data-label="Что значит">Аккаунт разлогинило, в MAX так бывает при постоянном бане</td><td data-label="Кто решает"><span class="pill admin">Администратор</span></td></tr><tr><td data-label="Что видишь">Открыт в другом месте</td><td data-label="Что значит">Номер подключён ещё где-то</td><td data-label="Кто решает"><span class="pill admin">Администратор</span></td></tr><tr><td data-label="Что видишь">Не оплачена подписка / Канал не в подписке</td><td data-label="Что значит">Канал выключен до оплаты или добавления в подписку</td><td data-label="Кто решает"><span class="pill admin">Администратор</span></td></tr><tr><td data-label="Что видишь">На тарифе закончились диалоги</td><td data-label="Что значит">Нельзя начать новый диалог до смены тарифа или нового месяца</td><td data-label="Кто решает"><span class="pill admin">Администратор</span></td></tr><tr><td data-label="Что видишь">Заблокирован</td><td data-label="Что значит">Техническая причина на стороне Wazzup</td><td data-label="Кто решает"><span class="pill admin">Администратор</span></td></tr></tbody></table></div>
+<p class="src">Источники: <a href="https://wazzup24.ru/help/how-to-use/channels-statuses-ru/" target="_blank" rel="noopener">Статусы каналов</a>, <a href="https://wazzup24.ru/help/bitrix24/wazzup-chats-in-bitrix24-ru/" target="_blank" rel="noopener">Где найти чаты Wazzup в Битрикс24</a>, <a href="https://wazzup24.ru/help/how-to-use/kak-ustroeny-chaty-wazzup/" target="_blank" rel="noopener">Как устроены чаты Wazzup</a>.</p></div></section>
+<section data-id="max" data-title="2. MAX не отправляет"><header class="sec-head"><div class="sec-ico"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg></div><div><div class="eyebrow">Раздел 2</div><h1>MAX: сообщение не уходит</h1></div></header>
+<p class="lead">Ошибка про спам не всегда означает бан. Чаще всего клиент скрыл номер или у него нет нас в контактах, и это решается без администратора.</p>
+<div class="block look"><h2>Как выглядит</h2><p><strong>Ошибка 1.</strong> «Мессенджер не пропускает сообщение из-за подозрения на спам», у чата красный восклицательный знак.</p>
+<figure><button class="zoom" type="button" data-src="img/oshibka_spam.png" aria-label="Увеличить"><img src="img/oshibka_spam.png" alt="Ошибка подозрения на спам в чате Wazzup" decoding="async"></button><figcaption>Ошибка подозрения на спам в чате Wazzup</figcaption></figure>
 <p><strong>Ошибка 2.</strong> «Клиент скрыл свой номер телефона или пользователя с таким номером не существует» (красная плашка справа внизу). Это не поломка, а настройки клиента. Надпись в поле ввода про тариф — отдельная проблема, она в разделе «Только администратор».</p>
-<figure><a href="img/oshibka_skryl_nomer_i_tarif.png" target="_blank"><img src="img/oshibka_skryl_nomer_i_tarif.png" alt="Ошибка: клиент скрыл номер" loading="lazy"></a><figcaption>Ошибка: клиент скрыл номер</figcaption></figure>
-<h2>Сделай сам, по порядку</h2>
-<ol><li><strong>Проверь, есть ли клиент в MAX.</strong> В приложении MAX на телефоне нажми «Найти по номеру» и введи номер клиента. «Мы не нашли такого контакта» или «Не нашли номер» = клиент скрыл номер или его нет в MAX. Администратор тут не поможет, сразу к шагу 5.</li><li><strong>Добавь клиента в контакты</strong> в самом MAX и напиши снова.</li><li><strong>Поправь текст и отправь чуть позже.</strong> Одинаковые сообщения подряд чаще улетают в спам.</li><li><strong>Напиши прямо из приложения MAX</strong> на телефоне.</li><li><strong>Не вышло:</strong> попроси клиента написать первым, открыть номер для всех или дать другой номер с мессенджером. Сделай это звонком или в Telegram/WhatsApp. На входящее сообщение ответить можно даже с номера во временном бане.</li></ol>
-<p class="example"><strong>Пример из чата (29.10).</strong> Менеджер не мог написать клиенту с общего номера. Арсений проверил номер в своём MAX и ответил: «Номер работает. Проблема в том, что клиент скрыл свой номер». Вот что он увидел:</p>
-<figure><a href="img/max_najti_po_nomeru.png" target="_blank"><img src="img/max_najti_po_nomeru.png" alt="MAX: «Мы не нашли такого контакта» при поиске по номеру" loading="lazy"></a><figcaption>MAX: «Мы не нашли такого контакта» при поиске по номеру</figcaption></figure>
-<figure><a href="img/max_ne_nashli_nomer.png" target="_blank"><img src="img/max_ne_nashli_nomer.png" alt="MAX: «Не нашли номер», у клиента нет ни Telegram, ни MAX" loading="lazy"></a><figcaption>MAX: «Не нашли номер», у клиента нет ни Telegram, ни MAX</figcaption></figure>
-<h2>Как понять, что твой номер в бане</h2>
-<ul><li><strong>Временный бан:</strong> поддержка MAX пишет об этом в самом мессенджере. Новым контактам написать нельзя, отвечать тем, кто написал сам или сохранил твой номер, можно. Снимается сам, срок не сообщают.</li><li><strong>Постоянный бан:</strong> выкидывает из MAX, при входе «Пользователь заблокирован или удалён», в Wazzup статус «Не авторизирован».</li><li><strong>В обоих случаях</strong> пиши администратору, он выдаст общий номер.</li></ul>
-<h2>Чтобы твой номер не забанили</h2>
-<ul><li>Не шли много одинаковых сообщений новым контактам за раз. Пиши лично, с именем и по делу.</li><li>Клиент просит не писать — не пиши. Жалоба на спам ведёт к бану, а каждый следующий бан длиннее.</li><li>Не пиши клиенту с чужих номеров без нужды: ему это может показаться мошенничеством.</li></ul>
-<h2>Пиши в чат, если</h2>
-<ul><li>клиент находится в MAX по номеру, а через Wazzup всё равно не уходит;</li><li>спам-ошибка у тебя с любыми клиентами, даже со старыми (твой номер в бане);</li><li>тебя выкинуло из MAX или статус «Не авторизирован».</li></ul>
-<p>Источник: <a href="https://wazzup24.ru/help/how-to-use/max-ban/" target="_blank" rel="noopener">Баны в MAX: причины и решения</a> и ответы Арсения в чате за 29.10.</p></section>
-<section id="tg" data-title="3. Telegram и WhatsApp"><h1>Telegram и WhatsApp: как писать первым</h1>
-<p>В Telegram пиши первым по юзернейму, а не по номеру. За юзернейм Telegram не банит, а за частые новые чаты по номеру банит.</p>
-<h2>Написать первым из сделки</h2>
-<ol><li>В карточке контакта заполни номер или юзернейм. Юзернейм Telegram идёт в поле <strong>TelegramUsername_WZ</strong> через @, например @ivan_ivanov.</li><li>Открой вкладку WAZZUP в сделке.</li><li>Чат создастся с твоего приоритетного номера. Нужен другой канал или номер — «Создать диалог», раздел «Чаты и приложение».</li></ol>
-<h2>Правила против бана в Telegram</h2>
-<ul><li>Новым клиентам по номеру пиши <strong>не чаще одного раза в 3 минуты</strong>. Wazzup проверял на себе: больше 14 новых чатов по номеру за 3 минуты = бан на неделю.</li><li>На нас пожаловались как на спам = бан от суток. Повторные жалобы = дольше, потом навсегда.</li><li>Во временном бане нельзя писать первым по номеру, но можно отвечать и писать по юзернейму. Проверить бан: напиши боту @SpamBot с этого аккаунта.</li></ul>
-<h2>Клиент не находится</h2>
-<div class="tw"><table><thead><tr><th>Что видишь</th><th>Причина</th><th>Что делать</th></tr></thead><tbody><tr><td data-label="Что видишь">WhatsApp: такого номера нет</td><td data-label="Причина">На номере клиента нет WhatsApp</td><td data-label="Что делать">Пробуй Telegram и MAX или звони</td></tr><tr><td data-label="Что видишь">Telegram не ищет по номеру</td><td data-label="Причина">Клиент скрыл номер в настройках</td><td data-label="Что делать">Найди его юзернейм в переписке открытой линии или спроси звонком</td></tr><tr><td data-label="Что видишь">Везде закрыто</td><td data-label="Причина">Ни WhatsApp, ни Telegram, ни MAX на номере</td><td data-label="Что делать">Попроси клиента написать первым или дать номер с мессенджером</td></tr><tr><td data-label="Что видишь">Клиент просит почту</td><td data-label="Причина">—</td><td data-label="Что делать">Корпоративная почта: sales@silenkoautocratia.ru</td></tr></tbody></table></div>
-<p class="example"><strong>Пример из чата (29.10).</strong> Менеджер не мог связаться ни в MAX, ни в Telegram, ни в WhatsApp. Ответ Арсения: «У клиента нет ни ТГ, ни Макса, попросите его написать вам либо запросите актуальный номер с мессенджерами». Администратор такое не чинит: это настройки клиента.</p>
-<h2>Пиши в чат, если</h2>
-<ul><li>«На тарифе закончились диалоги» или «Канал не в подписке» — см. раздел «Только администратор»;</li><li>твой Telegram в бане и нужен другой номер;</li><li>нужен доступ к общему WhatsApp.</li></ul>
-<p>Источники: <a href="https://wazzup24.ru/help/bitrix24/kak-napisat-pervym-v-whatsapp-i-telegram-iz-b24/" target="_blank" rel="noopener">Как написать первым из Битрикс24</a>, <a href="https://wazzup24.ru/help/how-to-use/kak-izbezhat-blokirovki-v-telegram/" target="_blank" rel="noopener">Как избежать блокировки в Telegram</a>.</p></section>
-<section id="chats" data-title="4. Чаты и приложение"><h1>Чат пропал, не создаётся, выкинуло из приложения</h1>
-<p>Пропавший чат обычно возвращается сам, стоит написать клиенту. Администратор нужен, только если пропали почти все чаты или нужен доступ к чужому номеру.</p>
-<h2>Пропал чат с клиентом</h2>
-<ol><li><strong>Напиши клиенту из сделки</strong> — чат подтянется. Или появится, когда клиент напишет сам.</li><li><strong>Не видно списка диалогов слева:</strong> нажми три полоски в левом верхнем углу окна Wazzup.</li><li><strong>Клиент писал с другого номера:</strong> разверни меню справа в сделке и проверь другие номера.</li><li><strong>Переписка была с номера коллеги:</strong> сейчас у каждого свой номер. Напиши клиенту со своего, представься и напомни, о чём говорили.</li></ol>
-<p class="example"><strong>Пример из чата (2.11).</strong> У многих пропали чаты. Ответ Арсения: «Если у вас пропали диалоги в ваззапе, нужно написать клиенту и он отобразится, либо когда клиент вам напишет, он тоже подтянется».</p>
-<h2>Диалог не создаётся или нужен другой номер</h2>
-<ol><li>Открой вкладку WAZZUP в сделке.</li><li>В списке слева раскрой клиента (стрелочка справа от имени).</li><li>Нажми <strong>«+ Создать диалог»</strong>.</li><li>В поле «Откуда писать» выбери нужный канал и номер → «Создать».</li></ol>
-<figure><a href="img/wazzup_sozdat_dialog.png" target="_blank"><img src="img/wazzup_sozdat_dialog.png" alt="Список «Чаты по каналам» и кнопка «+ Создать диалог»" loading="lazy"></a><figcaption>Список «Чаты по каналам» и кнопка «+ Создать диалог»</figcaption></figure>
-<p class="example"><strong>Частая ошибка (29.10).</strong> Менеджер хотел написать в MAX, а создавал чат там, где отмечен WhatsApp. Арсений: «Вам нужно было кликнуть там, где Макс, и нажать создать диалог, выбрав номер, который я выдал». Смотри на значок у аватарки: зелёный WhatsApp, синий кружок MAX.</p>
-<h2>Приложение Wazzup на телефоне</h2>
-<div class="tw"><table><thead><tr><th>Ситуация</th><th>Что сделать</th></tr></thead><tbody><tr><td data-label="Ситуация">Выкинуло, не приходит СМС для входа</td><td data-label="Что сделать">Удали приложение, установи заново и войди (совет Арсения от 2.11)</td></tr><tr><td data-label="Ситуация">Нет уведомлений</td><td data-label="Что сделать">В настройках телефона разреши Wazzup показывать уведомления</td></tr><tr><td data-label="Ситуация">Написать новому клиенту</td><td data-label="Что сделать">«+» в правом верхнем углу → имя, номер, код страны</td></tr><tr><td data-label="Ситуация">Написать с другого канала</td><td data-label="Что сделать">Стрелочка справа от диалога → «Создать диалог»</td></tr></tbody></table></div>
-<h2>Окно Wazzup не грузится или ошибка 500</h2>
-<p>Обнови страницу и подожди 1–2 минуты. Если через 5 минут то же самое и у коллег тоже — это сбой. Один человек пишет в чат со скриншотом, остальные ставят «+», а не дублируют.</p>
-<h2>Пиши в чат, если</h2>
-<ul><li>пропали почти все чаты сразу;</li><li>в списке «Откуда писать» нет нужного номера;</li><li>после переустановки приложение всё равно не пускает.</li></ul>
-<p>Источники: <a href="https://wazzup24.ru/help/how-to-use/kak-ustroeny-chaty-wazzup/" target="_blank" rel="noopener">Как устроены чаты Wazzup</a>, <a href="https://wazzup24.ru/help/how-to-use/chaty-v-mobilnom-prilozhenii/" target="_blank" rel="noopener">Чаты в мобильном приложении</a>.</p></section>
-<section id="files" data-title="5. Файлы и видео"><h1>Файлы и видеоосмотры</h1>
-<p>Из чата в сделке Битрикс24 уходит файл до 10 МБ. Видеоосмотр больше отправляй из приложения Wazzup на телефоне или ссылкой.</p>
-<h2>Лимиты по каналам</h2>
-<div class="tw"><table><thead><tr><th>Откуда и куда</th><th>Видео .mp4</th><th>Документы</th><th>Фото</th></tr></thead><tbody><tr><td data-label="Откуда и куда">Из чата в сделке Битрикс24, любой канал</td><td data-label="Видео .mp4">10 МБ</td><td data-label="Документы">10 МБ</td><td data-label="Фото">10 МБ</td></tr><tr><td data-label="Откуда и куда">Из приложения Wazzup → MAX</td><td data-label="Видео .mp4">50 МБ</td><td data-label="Документы">50 МБ</td><td data-label="Фото">50 МБ</td></tr><tr><td data-label="Откуда и куда">Из приложения Wazzup → WhatsApp</td><td data-label="Видео .mp4">45 МБ</td><td data-label="Документы">45 МБ</td><td data-label="Фото">45 МБ</td></tr><tr><td data-label="Откуда и куда">Из приложения Wazzup → Telegram</td><td data-label="Видео .mp4">20 МБ</td><td data-label="Документы">20 МБ</td><td data-label="Фото">5 МБ</td></tr><tr><td data-label="Откуда и куда">Из приложения Wazzup → Авито</td><td data-label="Видео .mp4">50 МБ</td><td data-label="Документы">—</td><td data-label="Фото">50 МБ</td></tr></tbody></table></div>
-<h2>Видео не уходит</h2>
-<ol><li>Проверь формат (нужен .mp4) и размер по таблице.</li><li>Больше 10 МБ: отправь из приложения Wazzup на телефоне (скрепка в левом нижнем углу).</li><li>Больше лимита канала: сожми видео или разрежь на части. Либо загрузи в облако и отправь ссылку.</li></ol>
-<h2>Файл в сделке не открывается</h2>
-<p>Обнови страницу и скачай заново. Так ответил Арсений 13.10, когда у менеджера не открывалось приложение к договору.</p>
-<p>Источник: <a href="https://wazzup24.ru/help/how-to-use/requirements-for-attachments/" target="_blank" rel="noopener">Какие картинки, видео и файлы можно отправлять</a>.</p></section>
-<section id="nonumber" data-title="6. Лид без номера"><h1>Лид без номера, битый номер, «вызов запрещён»</h1>
-<p>У лида из мессенджера или с Авито и Дрома номера часто нет в поле, но контакт есть в переписке. Ищи там, прежде чем писать в чат.</p>
-<h2>Сделай сам, по порядку</h2>
-<ol><li><strong>Открой переписку в сделке:</strong> чат открытой линии (Авито, Дром) или вкладку WAZZUP. Клиент часто пишет номер или ник в сообщении.</li><li><strong>Сделка по обращению в Telegram или MAX:</strong> отвечай в тот же чат, номер для этого не нужен. Выясни номер в переписке и впиши в карточку.</li><li><strong>Нашёл ник Telegram:</strong> впиши в поле TelegramUsername_WZ через @ и пиши по нему.</li><li><strong>Разверни меню справа в сделке:</strong> клиент мог писать с другого номера.</li><li><strong>Подожди несколько минут и обнови сделку:</strong> номер иногда подтягивается позже.</li><li><strong>Номер есть, но «вызов запрещён» или «неправильно набран номер»:</strong> проверь на опечатку (не хватает цифры, лишняя 8 или 7). Попробуй найти клиента по этому номеру в MAX, Telegram и WhatsApp.</li></ol>
-<p class="example"><strong>Примеры из чата.</strong></p>
-<ul><li>12.10, лид без номера. Арсений: «Тут написали в ТГ, выяснить его нужно в переписке».</li><li>13.09, четыре лида без номера. Арсений: «Номера проставились» и «здесь писать в тг, клиент скинул username».</li></ul>
-<h2>Контакта нет нигде</h2>
-<p>Нет номера, ника и переписки, либо номер не существует и все мессенджеры закрыты. Одно сообщение в чат: ссылка на сделку + «нет контактов, переписку проверил». Такие лиды убирает администратор, чтобы они не портили твою статистику дозвона.</p></section>
-<section id="spam" data-title="7. Нецелевые и спам"><h1>Нецелевые: не оставлял заявку, спам, сотрудничество, вакансии</h1>
-<p>Нецелевую сделку менеджер закрывает сам: в отказ и в «Спам». Удалять не нужно, писать в чат тоже.</p>
-<h2>Что делать с каждым случаем</h2>
-<div class="tw"><table><thead><tr><th>Ситуация</th><th>Что сделать</th><th>Писать в чат?</th></tr></thead><tbody><tr><td data-label="Ситуация">«Заявку не оставлял», оставил случайно, не интересует</td><td data-label="Что сделать">Отказ → «Спам»</td><td data-label="Писать в чат?">Нет</td></tr><tr><td data-label="Ситуация">Звонит или отвечает ребёнок</td><td data-label="Что сделать">Отказ → «Спам»</td><td data-label="Писать в чат?">Нет</td></tr><tr><td data-label="Ситуация">Ошибся номером, звонил не нам</td><td data-label="Что сделать">Отказ → «Спам»</td><td data-label="Писать в чат?">Нет</td></tr><tr><td data-label="Ситуация">Реклама, 2ГИС, банки, лидогенерация, поставщики из Китая, брокеры</td><td data-label="Что сделать">Отказ → «Спам»</td><td data-label="Писать в чат?">Нет</td></tr><tr><td data-label="Ситуация">Звонок по вакансии или трудоустройству</td><td data-label="Что сделать">Дай кандидату контакт HR или передай номер Рите Селезнёвой, сделку → «Спам»</td><td data-label="Писать в чат?">Нет, пиши Рите напрямую</td></tr><tr><td data-label="Ситуация">Один и тот же спам-номер попадается многим</td><td data-label="Что сделать">В «Спам»</td><td data-label="Писать в чат?">Да, один раз: номер + «попадается всем», отметь Ольгу Долгополову</td></tr><tr><td data-label="Ситуация">Сделка с номером сотрудника или твоя тестовая</td><td data-label="Что сделать">—</td><td data-label="Писать в чат?">Да: ссылка + «тестовая, удалите»</td></tr><tr><td data-label="Ситуация">Сделка висит в банке лидов и не переводится в «Спам»</td><td data-label="Что сделать">—</td><td data-label="Писать в чат?">Да: ссылка + «не уходит в спам»</td></tr></tbody></table></div>
-<h2>Почему не удаляем и не пишем в чат</h2>
-<ul><li>«Главное — не удалять, чтоб была статистика» (Артём Крамаренко, маркетинг, 23.03). По спаму маркетинг видит, какие источники приводят мусор.</li><li>«Такие заявки в отказ и в спам» (Арсений, 20.04). «Спам сюда зачем?» (Герман, 11.02).</li><li>За полгода в чат пришло больше 140 сообщений про рекламу, сотрудничество и вакансии, и почти все можно было закрыть одним кликом.</li></ul>
-<h2>Входящий звонок: как представляться</h2>
-<p>«Здравствуйте! Компания Силенко Автократия», а не «Алло». Так просил отдел маркетинга 19.03.</p></section>
-<section id="dupes" data-title="8. Дубли"><h1>Дубли: как оформить и объединить</h1>
-<p>Дубль объединяет сам менеджер, если обе сделки ему доступны. Дубли — самая частая тема чата: 527 сообщений, треть всей переписки. И чаще всего они не объединялись из-за одной и той же ошибки в оформлении.</p>
-<h2>Чек-лист перед объединением</h2>
-<ul class="check"><li><label><input type="checkbox"> <span>Обе сделки в <strong>одной воронке</strong>. Перенеси дубль туда, где оригинал (например, в «Отложенный спрос» или «Отказ»).</span></label></li><li><label><input type="checkbox"> <span>В <strong>названии</strong> каждой сделки написано, кто оригинал, а кто дубль.</span></label></li><li><label><input type="checkbox"> <span>В обеих сделках <strong>один и тот же номер</strong> телефона. Дополнительный номер можно, но один общий признак обязателен.</span></label></li><li><label><input type="checkbox"> <span>Номера нет: в обе сделки вписан <strong>один и тот же ник Telegram</strong>.</span></label></li><li><label><input type="checkbox"> <span>Объедини сделки по инструкции из обучения (книга продаж / книга хантеров).</span></label></li></ul>
-<p>Герман Силенко, 2.03: «В названии сделки должно быть прописано, кто дубль, а кто оригинал, и они должны быть в одной воронке». 10.03: «Одна и та же везде ошибка, правила в книге продаж».</p>
-<h2>Частые ошибки</h2>
-<div class="tw"><table><thead><tr><th>Ошибка</th><th>Чем кончается</th></tr></thead><tbody><tr><td data-label="Ошибка">Сделки в разных воронках</td><td data-label="Чем кончается">«Не объединяет», «не находит»</td></tr><tr><td data-label="Ошибка">В одной сделке нет номера или номера разные</td><td data-label="Чем кончается">Системе не по чему их связать</td></tr><tr><td data-label="Ошибка">В названии не отмечено, что дубль</td><td data-label="Чем кончается">Непонятно, что с чем сливать</td></tr><tr><td data-label="Ошибка">Дублем назвали сделку другого человека (жена, друг, тот же номер в семье)</td><td data-label="Чем кончается">Герман: «Это не дубль, вы с чего взяли?»</td></tr></tbody></table></div>
-<h2>Пиши в чат, только если</h2>
-<p>Оригинал в воронке, к которой у тебя нет доступа (например, у логистов, когда машина уже выдана), или ты не знаешь, чей оригинал. Одно сообщение в формате:</p>
-<div class="tpl"><pre>оригинал: &lt;ссылка на сделку&gt;
+<figure><button class="zoom" type="button" data-src="img/oshibka_skryl_nomer_i_tarif.png" aria-label="Увеличить"><img src="img/oshibka_skryl_nomer_i_tarif.png" alt="Ошибка: клиент скрыл номер" decoding="async"></button><figcaption>Ошибка: клиент скрыл номер</figcaption></figure></div>
+<div class="block do"><h2>Сделай сам, по порядку<span class="tag self">Сделай сам</span></h2><ol class="steps"><li><strong>Проверь, есть ли клиент в MAX.</strong> В приложении MAX на телефоне нажми «Найти по номеру» и введи номер клиента. «Мы не нашли такого контакта» или «Не нашли номер» = клиент скрыл номер или его нет в MAX. Администратор тут не поможет, сразу к шагу 5.</li><li><strong>Добавь клиента в контакты</strong> в самом MAX и напиши снова.</li><li><strong>Поправь текст и отправь чуть позже.</strong> Одинаковые сообщения подряд чаще улетают в спам.</li><li><strong>Напиши прямо из приложения MAX</strong> на телефоне.</li><li><strong>Не вышло:</strong> попроси клиента написать первым, открыть номер для всех или дать другой номер с мессенджером. Сделай это звонком или в Telegram/WhatsApp. На входящее сообщение ответить можно даже с номера во временном бане.</li></ol>
+<blockquote class="example"><div class="ex-label"><svg class="ex-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H8l-4 4z"/><path d="M8 9h8M8 12h5"/></svg>Пример из чата (29.10)</div><p>Менеджер не мог написать клиенту с общего номера. Арсений проверил номер в своём MAX и ответил: «Номер работает. Проблема в том, что клиент скрыл свой номер». Вот что он увидел:</p></blockquote>
+<figure><button class="zoom" type="button" data-src="img/max_najti_po_nomeru.png" aria-label="Увеличить"><img src="img/max_najti_po_nomeru.png" alt="MAX: «Мы не нашли такого контакта» при поиске по номеру" decoding="async"></button><figcaption>MAX: «Мы не нашли такого контакта» при поиске по номеру</figcaption></figure>
+<figure><button class="zoom" type="button" data-src="img/max_ne_nashli_nomer.png" aria-label="Увеличить"><img src="img/max_ne_nashli_nomer.png" alt="MAX: «Не нашли номер», у клиента нет ни Telegram, ни MAX" decoding="async"></button><figcaption>MAX: «Не нашли номер», у клиента нет ни Telegram, ни MAX</figcaption></figure></div>
+<div class="block plain"><h2>Как понять, что твой номер в бане</h2><ul><li><strong>Временный бан:</strong> поддержка MAX пишет об этом в самом мессенджере. Новым контактам написать нельзя, отвечать тем, кто написал сам или сохранил твой номер, можно. Снимается сам, срок не сообщают.</li><li><strong>Постоянный бан:</strong> выкидывает из MAX, при входе «Пользователь заблокирован или удалён», в Wazzup статус «Не авторизирован».</li><li><strong>В обоих случаях</strong> пиши администратору, он выдаст общий номер.</li></ul></div>
+<div class="block plain"><h2>Чтобы твой номер не забанили</h2><ul><li>Не шли много одинаковых сообщений новым контактам за раз. Пиши лично, с именем и по делу.</li><li>Клиент просит не писать — не пиши. Жалоба на спам ведёт к бану, а каждый следующий бан длиннее.</li><li>Не пиши клиенту с чужих номеров без нужды: ему это может показаться мошенничеством.</li></ul></div>
+<div class="block warn"><h2>Пиши в чат, если<span class="tag admin">Когда в чат</span></h2><ul><li>клиент находится в MAX по номеру, а через Wazzup всё равно не уходит;</li><li>спам-ошибка у тебя с любыми клиентами, даже со старыми (твой номер в бане);</li><li>тебя выкинуло из MAX или статус «Не авторизирован».</li></ul>
+<p class="src">Источник: <a href="https://wazzup24.ru/help/how-to-use/max-ban/" target="_blank" rel="noopener">Баны в MAX: причины и решения</a> и ответы Арсения в чате за 29.10.</p></div></section>
+<section data-id="tg" data-title="3. Telegram и WhatsApp"><header class="sec-head"><div class="sec-ico"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 4L3 11l6 2 2 6 3-4 5 4z"/><path d="M9 13l7-5"/></svg></div><div><div class="eyebrow">Раздел 3</div><h1>Telegram и WhatsApp: как писать первым</h1></div></header>
+<p class="lead">В Telegram пиши первым по юзернейму, а не по номеру. За юзернейм Telegram не банит, а за частые новые чаты по номеру банит.</p>
+<div class="block plain"><h2>Написать первым из сделки</h2><ol class="steps"><li>В карточке контакта заполни номер или юзернейм. Юзернейм Telegram идёт в поле <strong>TelegramUsername_WZ</strong> через @, например @ivan_ivanov.</li><li>Открой вкладку WAZZUP в сделке.</li><li>Чат создастся с твоего приоритетного номера. Нужен другой канал или номер — «Создать диалог», раздел «Чаты и приложение».</li></ol></div>
+<div class="block plain"><h2>Правила против бана в Telegram</h2><ul><li>Новым клиентам по номеру пиши <strong>не чаще одного раза в 3 минуты</strong>. Wazzup проверял на себе: больше 14 новых чатов по номеру за 3 минуты = бан на неделю.</li><li>На нас пожаловались как на спам = бан от суток. Повторные жалобы = дольше, потом навсегда.</li><li>Во временном бане нельзя писать первым по номеру, но можно отвечать и писать по юзернейму. Проверить бан: напиши боту @SpamBot с этого аккаунта.</li></ul></div>
+<div class="block plain"><h2>Клиент не находится</h2><div class="tw"><table><thead><tr><th>Что видишь</th><th>Причина</th><th>Что делать</th></tr></thead><tbody><tr><td data-label="Что видишь">WhatsApp: такого номера нет</td><td data-label="Причина">На номере клиента нет WhatsApp</td><td data-label="Что делать">Пробуй Telegram и MAX или звони</td></tr><tr><td data-label="Что видишь">Telegram не ищет по номеру</td><td data-label="Причина">Клиент скрыл номер в настройках</td><td data-label="Что делать">Найди его юзернейм в переписке открытой линии или спроси звонком</td></tr><tr><td data-label="Что видишь">Везде закрыто</td><td data-label="Причина">Ни WhatsApp, ни Telegram, ни MAX на номере</td><td data-label="Что делать">Попроси клиента написать первым или дать номер с мессенджером</td></tr><tr><td data-label="Что видишь">Клиент просит почту</td><td data-label="Причина">—</td><td data-label="Что делать">Корпоративная почта: sales@silenkoautocratia.ru</td></tr></tbody></table></div>
+<blockquote class="example"><div class="ex-label"><svg class="ex-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H8l-4 4z"/><path d="M8 9h8M8 12h5"/></svg>Пример из чата (29.10)</div><p>Менеджер не мог связаться ни в MAX, ни в Telegram, ни в WhatsApp. Ответ Арсения: «У клиента нет ни ТГ, ни Макса, попросите его написать вам либо запросите актуальный номер с мессенджерами». Администратор такое не чинит: это настройки клиента.</p></blockquote></div>
+<div class="block warn"><h2>Пиши в чат, если<span class="tag admin">Когда в чат</span></h2><ul><li>«На тарифе закончились диалоги» или «Канал не в подписке» — см. раздел «Только администратор»;</li><li>твой Telegram в бане и нужен другой номер;</li><li>нужен доступ к общему WhatsApp.</li></ul>
+<p class="src">Источники: <a href="https://wazzup24.ru/help/bitrix24/kak-napisat-pervym-v-whatsapp-i-telegram-iz-b24/" target="_blank" rel="noopener">Как написать первым из Битрикс24</a>, <a href="https://wazzup24.ru/help/how-to-use/kak-izbezhat-blokirovki-v-telegram/" target="_blank" rel="noopener">Как избежать блокировки в Telegram</a>.</p></div></section>
+<section data-id="chats" data-title="4. Чаты и приложение"><header class="sec-head"><div class="sec-ico"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H8l-4 4z"/><path d="M8 9h8M8 12h5"/></svg></div><div><div class="eyebrow">Раздел 4</div><h1>Чат пропал, не создаётся, выкинуло из приложения</h1></div></header>
+<p class="lead">Пропавший чат обычно возвращается сам, стоит написать клиенту. Администратор нужен, только если пропали почти все чаты или нужен доступ к чужому номеру.</p>
+<div class="block plain"><h2>Пропал чат с клиентом</h2><ol class="steps"><li><strong>Напиши клиенту из сделки</strong> — чат подтянется. Или появится, когда клиент напишет сам.</li><li><strong>Не видно списка диалогов слева:</strong> нажми три полоски в левом верхнем углу окна Wazzup.</li><li><strong>Клиент писал с другого номера:</strong> разверни меню справа в сделке и проверь другие номера.</li><li><strong>Переписка была с номера коллеги:</strong> сейчас у каждого свой номер. Напиши клиенту со своего, представься и напомни, о чём говорили.</li></ol>
+<blockquote class="example"><div class="ex-label"><svg class="ex-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H8l-4 4z"/><path d="M8 9h8M8 12h5"/></svg>Пример из чата (2.11)</div><p>У многих пропали чаты. Ответ Арсения: «Если у вас пропали диалоги в ваззапе, нужно написать клиенту и он отобразится, либо когда клиент вам напишет, он тоже подтянется».</p></blockquote></div>
+<div class="block plain"><h2>Диалог не создаётся или нужен другой номер</h2><ol class="steps"><li>Открой вкладку WAZZUP в сделке.</li><li>В списке слева раскрой клиента (стрелочка справа от имени).</li><li>Нажми <strong>«+ Создать диалог»</strong>.</li><li>В поле «Откуда писать» выбери нужный канал и номер → «Создать».</li></ol>
+<figure><button class="zoom" type="button" data-src="img/wazzup_sozdat_dialog.png" aria-label="Увеличить"><img src="img/wazzup_sozdat_dialog.png" alt="Список «Чаты по каналам» и кнопка «+ Создать диалог»" decoding="async"></button><figcaption>Список «Чаты по каналам» и кнопка «+ Создать диалог»</figcaption></figure>
+<blockquote class="example"><div class="ex-label"><svg class="ex-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H8l-4 4z"/><path d="M8 9h8M8 12h5"/></svg>Частая ошибка (29.10)</div><p>Менеджер хотел написать в MAX, а создавал чат там, где отмечен WhatsApp. Арсений: «Вам нужно было кликнуть там, где Макс, и нажать создать диалог, выбрав номер, который я выдал». Смотри на значок у аватарки: зелёный WhatsApp, синий кружок MAX.</p></blockquote></div>
+<div class="block plain"><h2>Приложение Wazzup на телефоне</h2><div class="tw"><table><thead><tr><th>Ситуация</th><th>Что сделать</th></tr></thead><tbody><tr><td data-label="Ситуация">Выкинуло, не приходит СМС для входа</td><td data-label="Что сделать">Удали приложение, установи заново и войди (совет Арсения от 2.11)</td></tr><tr><td data-label="Ситуация">Нет уведомлений</td><td data-label="Что сделать">В настройках телефона разреши Wazzup показывать уведомления</td></tr><tr><td data-label="Ситуация">Написать новому клиенту</td><td data-label="Что сделать">«+» в правом верхнем углу → имя, номер, код страны</td></tr><tr><td data-label="Ситуация">Написать с другого канала</td><td data-label="Что сделать">Стрелочка справа от диалога → «Создать диалог»</td></tr></tbody></table></div></div>
+<div class="block plain"><h2>Окно Wazzup не грузится или ошибка 500</h2><p>Обнови страницу и подожди 1–2 минуты. Если через 5 минут то же самое и у коллег тоже — это сбой. Один человек пишет в чат со скриншотом, остальные ставят «+», а не дублируют.</p></div>
+<div class="block warn"><h2>Пиши в чат, если<span class="tag admin">Когда в чат</span></h2><ul><li>пропали почти все чаты сразу;</li><li>в списке «Откуда писать» нет нужного номера;</li><li>после переустановки приложение всё равно не пускает.</li></ul>
+<p class="src">Источники: <a href="https://wazzup24.ru/help/how-to-use/kak-ustroeny-chaty-wazzup/" target="_blank" rel="noopener">Как устроены чаты Wazzup</a>, <a href="https://wazzup24.ru/help/how-to-use/chaty-v-mobilnom-prilozhenii/" target="_blank" rel="noopener">Чаты в мобильном приложении</a>.</p></div></section>
+<section data-id="files" data-title="5. Файлы и видео"><header class="sec-head"><div class="sec-ico"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M10 9l5 3-5 3z"/></svg></div><div><div class="eyebrow">Раздел 5</div><h1>Файлы и видеоосмотры</h1></div></header>
+<p class="lead">Из чата в сделке Битрикс24 уходит файл до 10 МБ. Видеоосмотр больше отправляй из приложения Wazzup на телефоне или ссылкой.</p>
+<div class="block plain"><h2>Лимиты по каналам</h2><div class="tw"><table><thead><tr><th>Откуда и куда</th><th>Видео .mp4</th><th>Документы</th><th>Фото</th></tr></thead><tbody><tr><td data-label="Откуда и куда">Из чата в сделке Битрикс24, любой канал</td><td data-label="Видео .mp4">10 МБ</td><td data-label="Документы">10 МБ</td><td data-label="Фото">10 МБ</td></tr><tr><td data-label="Откуда и куда">Из приложения Wazzup → MAX</td><td data-label="Видео .mp4">50 МБ</td><td data-label="Документы">50 МБ</td><td data-label="Фото">50 МБ</td></tr><tr><td data-label="Откуда и куда">Из приложения Wazzup → WhatsApp</td><td data-label="Видео .mp4">45 МБ</td><td data-label="Документы">45 МБ</td><td data-label="Фото">45 МБ</td></tr><tr><td data-label="Откуда и куда">Из приложения Wazzup → Telegram</td><td data-label="Видео .mp4">20 МБ</td><td data-label="Документы">20 МБ</td><td data-label="Фото">5 МБ</td></tr><tr><td data-label="Откуда и куда">Из приложения Wazzup → Авито</td><td data-label="Видео .mp4">50 МБ</td><td data-label="Документы">—</td><td data-label="Фото">50 МБ</td></tr></tbody></table></div></div>
+<div class="block plain"><h2>Видео не уходит</h2><ol class="steps"><li>Проверь формат (нужен .mp4) и размер по таблице.</li><li>Больше 10 МБ: отправь из приложения Wazzup на телефоне (скрепка в левом нижнем углу).</li><li>Больше лимита канала: сожми видео или разрежь на части. Либо загрузи в облако и отправь ссылку.</li></ol></div>
+<div class="block plain"><h2>Файл в сделке не открывается</h2><p>Обнови страницу и скачай заново. Так ответил Арсений 13.10, когда у менеджера не открывалось приложение к договору.</p>
+<p class="src">Источник: <a href="https://wazzup24.ru/help/how-to-use/requirements-for-attachments/" target="_blank" rel="noopener">Какие картинки, видео и файлы можно отправлять</a>.</p></div></section>
+<section data-id="nonumber" data-title="6. Лид без номера"><header class="sec-head"><div class="sec-ico"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a1 1 0 0 1-1 1A16 16 0 0 1 4 5a1 1 0 0 1 1-1z"/><path d="M3 3l18 18"/></svg></div><div><div class="eyebrow">Раздел 6</div><h1>Лид без номера, битый номер, «вызов запрещён»</h1></div></header>
+<p class="lead">У лида из мессенджера или с Авито и Дрома номера часто нет в поле, но контакт есть в переписке. Ищи там, прежде чем писать в чат.</p>
+<div class="block do"><h2>Сделай сам, по порядку<span class="tag self">Сделай сам</span></h2><ol class="steps"><li><strong>Открой переписку в сделке:</strong> чат открытой линии (Авито, Дром) или вкладку WAZZUP. Клиент часто пишет номер или ник в сообщении.</li><li><strong>Сделка по обращению в Telegram или MAX:</strong> отвечай в тот же чат, номер для этого не нужен. Выясни номер в переписке и впиши в карточку.</li><li><strong>Нашёл ник Telegram:</strong> впиши в поле TelegramUsername_WZ через @ и пиши по нему.</li><li><strong>Разверни меню справа в сделке:</strong> клиент мог писать с другого номера.</li><li><strong>Подожди несколько минут и обнови сделку:</strong> номер иногда подтягивается позже.</li><li><strong>Номер есть, но «вызов запрещён» или «неправильно набран номер»:</strong> проверь на опечатку (не хватает цифры, лишняя 8 или 7). Попробуй найти клиента по этому номеру в MAX, Telegram и WhatsApp.</li></ol>
+<blockquote class="example"><div class="ex-label"><svg class="ex-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H8l-4 4z"/><path d="M8 9h8M8 12h5"/></svg>Примеры из чата</div><p></p></blockquote>
+<ul><li>12.10, лид без номера. Арсений: «Тут написали в ТГ, выяснить его нужно в переписке».</li><li>13.09, четыре лида без номера. Арсений: «Номера проставились» и «здесь писать в тг, клиент скинул username».</li></ul></div>
+<div class="block warn"><h2>Контакта нет нигде<span class="tag admin">Когда в чат</span></h2><p>Нет номера, ника и переписки, либо номер не существует и все мессенджеры закрыты. Одно сообщение в чат: ссылка на сделку + «нет контактов, переписку проверил». Такие лиды убирает администратор, чтобы они не портили твою статистику дозвона.</p></div></section>
+<section data-id="spam" data-title="7. Нецелевые и спам"><header class="sec-head"><div class="sec-ico"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/></svg></div><div><div class="eyebrow">Раздел 7</div><h1>Нецелевые: не оставлял заявку, спам, сотрудничество, вакансии</h1></div></header>
+<p class="lead">Нецелевую сделку менеджер закрывает сам: в отказ и в «Спам». Удалять не нужно, писать в чат тоже.</p>
+<div class="block plain"><h2>Что делать с каждым случаем</h2><div class="tw"><table><thead><tr><th>Ситуация</th><th>Что сделать</th><th>Писать в чат?</th></tr></thead><tbody><tr><td data-label="Ситуация">«Заявку не оставлял», оставил случайно, не интересует</td><td data-label="Что сделать">Отказ → «Спам»</td><td data-label="Писать в чат?">Нет</td></tr><tr><td data-label="Ситуация">Звонит или отвечает ребёнок</td><td data-label="Что сделать">Отказ → «Спам»</td><td data-label="Писать в чат?">Нет</td></tr><tr><td data-label="Ситуация">Ошибся номером, звонил не нам</td><td data-label="Что сделать">Отказ → «Спам»</td><td data-label="Писать в чат?">Нет</td></tr><tr><td data-label="Ситуация">Реклама, 2ГИС, банки, лидогенерация, поставщики из Китая, брокеры</td><td data-label="Что сделать">Отказ → «Спам»</td><td data-label="Писать в чат?">Нет</td></tr><tr><td data-label="Ситуация">Звонок по вакансии или трудоустройству</td><td data-label="Что сделать">Дай кандидату контакт HR или передай номер Рите Селезнёвой, сделку → «Спам»</td><td data-label="Писать в чат?">Нет, пиши Рите напрямую</td></tr><tr><td data-label="Ситуация">Один и тот же спам-номер попадается многим</td><td data-label="Что сделать">В «Спам»</td><td data-label="Писать в чат?">Да, один раз: номер + «попадается всем», отметь Ольгу Долгополову</td></tr><tr><td data-label="Ситуация">Сделка с номером сотрудника или твоя тестовая</td><td data-label="Что сделать">—</td><td data-label="Писать в чат?">Да: ссылка + «тестовая, удалите»</td></tr><tr><td data-label="Ситуация">Сделка висит в банке лидов и не переводится в «Спам»</td><td data-label="Что сделать">—</td><td data-label="Писать в чат?">Да: ссылка + «не уходит в спам»</td></tr></tbody></table></div></div>
+<div class="block plain"><h2>Почему не удаляем и не пишем в чат</h2><ul><li>«Главное — не удалять, чтоб была статистика» (Артём Крамаренко, маркетинг, 23.03). По спаму маркетинг видит, какие источники приводят мусор.</li><li>«Такие заявки в отказ и в спам» (Арсений, 20.04). «Спам сюда зачем?» (Герман, 11.02).</li><li>За полгода в чат пришло больше 140 сообщений про рекламу, сотрудничество и вакансии, и почти все можно было закрыть одним кликом.</li></ul></div>
+<div class="block plain"><h2>Входящий звонок: как представляться</h2><p>«Здравствуйте! Компания Силенко Автократия», а не «Алло». Так просил отдел маркетинга 19.03.</p></div></section>
+<section data-id="dupes" data-title="8. Дубли"><header class="sec-head"><div class="sec-ico"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3"/></svg></div><div><div class="eyebrow">Раздел 8</div><h1>Дубли: как оформить и объединить</h1></div></header>
+<p class="lead">Дубль объединяет сам менеджер, если обе сделки ему доступны. Дубли — самая частая тема чата: 527 сообщений, треть всей переписки. И чаще всего они не объединялись из-за одной и той же ошибки в оформлении.</p>
+<div class="block plain"><h2>Чек-лист перед объединением</h2><ul class="check"><li><label><input type="checkbox"><span>Обе сделки в <strong>одной воронке</strong>. Перенеси дубль туда, где оригинал (например, в «Отложенный спрос» или «Отказ»).</span></label></li><li><label><input type="checkbox"><span>В <strong>названии</strong> каждой сделки написано, кто оригинал, а кто дубль.</span></label></li><li><label><input type="checkbox"><span>В обеих сделках <strong>один и тот же номер</strong> телефона. Дополнительный номер можно, но один общий признак обязателен.</span></label></li><li><label><input type="checkbox"><span>Номера нет: в обе сделки вписан <strong>один и тот же ник Telegram</strong>.</span></label></li><li><label><input type="checkbox"><span>Объедини сделки по инструкции из обучения (книга продаж / книга хантеров).</span></label></li></ul>
+<p>Герман Силенко, 2.03: «В названии сделки должно быть прописано, кто дубль, а кто оригинал, и они должны быть в одной воронке». 10.03: «Одна и та же везде ошибка, правила в книге продаж».</p></div>
+<div class="block plain"><h2>Частые ошибки</h2><div class="tw"><table><thead><tr><th>Ошибка</th><th>Чем кончается</th></tr></thead><tbody><tr><td data-label="Ошибка">Сделки в разных воронках</td><td data-label="Чем кончается">«Не объединяет», «не находит»</td></tr><tr><td data-label="Ошибка">В одной сделке нет номера или номера разные</td><td data-label="Чем кончается">Системе не по чему их связать</td></tr><tr><td data-label="Ошибка">В названии не отмечено, что дубль</td><td data-label="Чем кончается">Непонятно, что с чем сливать</td></tr><tr><td data-label="Ошибка">Дублем назвали сделку другого человека (жена, друг, тот же номер в семье)</td><td data-label="Чем кончается">Герман: «Это не дубль, вы с чего взяли?»</td></tr></tbody></table></div></div>
+<div class="block warn"><h2>Пиши в чат, только если<span class="tag admin">Когда в чат</span></h2><p>Оригинал в воронке, к которой у тебя нет доступа (например, у логистов, когда машина уже выдана), или ты не знаешь, чей оригинал. Одно сообщение в формате:</p>
+<div class="tpl"><div class="tpl-head"><span>Шаблон сообщения</span><button class="copy" type="button">Скопировать</button></div><pre>оригинал: &lt;ссылка на сделку&gt;
 дубль: &lt;ссылка на сделку&gt;
 номер: +7 ...
-причина: оригинал у логистов, доступа нет</pre><button class="copy" type="button">Скопировать</button></div>
-<p>Не знаешь, чей клиент: напиши номер и имя клиента с отметкой @Все, чтобы владелец откликнулся. Арсений, 1.09: «У кого дубли, пишите сюда, так вы поможете друг другу оперативно их найти и объединить».</p></section>
-<section id="calls" data-title="9. Звонки, очередь, смена"><h1>Входящие, банк лидов, очередь и смена</h1>
-<p>Большинство таких вопросов решается проверкой банка лидов и одним кликом. Администратор нужен, когда сделку надо перевести с другого менеджера или что-то сломалось у всех.</p>
-<h2>Взял входящий звонок, а сделки у тебя нет</h2>
-<ol><li><strong>Подожди 1–2 минуты и проверь банк лидов.</strong> Новые заявки появляются не сразу. Нашёл — сразу забирай: по регламенту заявка не должна висеть в банке.</li><li><strong>В банке нет:</strong> сделка с этим номером уже есть у кого-то из коллег. Напиши в чат одно сообщение:</li></ol>
-<div class="tpl"><pre>+7 ... Имя, входящий, переведите на меня
-суть: приедет в офис в субботу / просил перезвонить 5 числа</pre><button class="copy" type="button">Скопировать</button></div>
+причина: оригинал у логистов, доступа нет</pre></div>
+<p>Не знаешь, чей клиент: напиши номер и имя клиента с отметкой @Все, чтобы владелец откликнулся. Арсений, 1.09: «У кого дубли, пишите сюда, так вы поможете друг другу оперативно их найти и объединить».</p></div></section>
+<section data-id="calls" data-title="9. Звонки, очередь, смена"><header class="sec-head"><div class="sec-ico"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2M9 2h6"/></svg></div><div><div class="eyebrow">Раздел 9</div><h1>Входящие, банк лидов, очередь и смена</h1></div></header>
+<p class="lead">Большинство таких вопросов решается проверкой банка лидов и одним кликом. Администратор нужен, когда сделку надо перевести с другого менеджера или что-то сломалось у всех.</p>
+<div class="block plain"><h2>Взял входящий звонок, а сделки у тебя нет</h2><ol class="steps"><li><strong>Подожди 1–2 минуты и проверь банк лидов.</strong> Новые заявки появляются не сразу. Нашёл — сразу забирай: по регламенту заявка не должна висеть в банке.</li><li><strong>В банке нет:</strong> сделка с этим номером уже есть у кого-то из коллег. Напиши в чат одно сообщение:</li></ol>
+<div class="tpl"><div class="tpl-head"><span>Шаблон сообщения</span><button class="copy" type="button">Скопировать</button></div><pre>+7 ... Имя, входящий, переведите на меня
+суть: приедет в офис в субботу / просил перезвонить 5 числа</pre></div>
 <p>Правило от 9.06: просьбы перевести заявку или поменять ответственного пишем в этот чат с отметкой @Герман Силенко.</p>
-<ol><li><strong>Не знаешь, чей клиент:</strong> номер + имя + «чей клиент?» с отметкой @Все. Владелец сделки отзовётся и переведёт или перезвонит.</li></ol>
-<h2>Очередь в «Департаменте продаж»</h2>
-<ul><li>Получил заявку — идёт таймер «До возврата в очередь». Готов раньше: нажми <strong>«Встать в очередь сейчас»</strong>, встанешь в конец.</li><li>Уходишь на время: «Уйти из очереди». Конец дня: «Выйти из очереди и закончить рабочий день».</li><li>Очередь не двигается дольше обычного или «Департамент продаж» не открывается: спроси коллег в чате «у всех так?» и отметь администратора.</li></ul>
-<figure><a href="img/ochered_departament.png" target="_blank"><img src="img/ochered_departament.png" alt="Очередь в приложении «Департамент продаж»" loading="lazy"></a><figcaption>Очередь в приложении «Департамент продаж»</figcaption></figure>
-<h2>Забыл завершить смену</h2>
-<p>Исправляется самому: в виджете рабочего дня нажми <strong>карандаш рядом со временем</strong> и измени время окончания. Так посоветовал коллега 24.10, проверено.</p>
-<figure><a href="img/smena_karandash.png" target="_blank"><img src="img/smena_karandash.png" alt="Виджет смены: карандаш рядом со временем" loading="lazy"></a><figcaption>Виджет смены: карандаш рядом со временем</figcaption></figure>
-<h2>Банк лидов пустой или сделка пропала</h2>
-<ul><li>Банк вдруг пустой: обнови страницу, Битрикс иногда тормозит.</li><li>Взял заявку, а она исчезла: скорее всего, её уже забрал коллега или это дубль.</li><li>Пришло уведомление о новом лиде, а при открытии «нет прав»: это уже вопрос администратора.</li></ul>
-<h2>Телефония</h2>
-<ul><li>Сразу разъединяет или нет входящих: спроси в чате, у всех ли так. У всех — одно сообщение со скриншотом ошибки, остальные ставят «+». Только у тебя — отметь администратора.</li><li>Долго нет ответа, а ситуация срочная: звони Арсению на мобильный (его просьба от 13.10).</li></ul></section>
-<section id="admin" data-title="10. Только администратор"><h1>Только администратор</h1>
-<p>Эти ситуации менеджер сам не решит: нужны права в Wazzup или Битрикс24. Сразу пиши в чат с отметкой @Арсений Чумак по шаблону из раздела «Как писать в чат».</p>
-<h2>Мессенджеры и Wazzup</h2>
-<div class="tw"><table><thead><tr><th>Что видишь</th><th>Что написать</th></tr></thead><tbody><tr><td data-label="Что видишь">«На тарифе закончились диалоги. Перейдите на другой тариф»</td><td data-label="Что написать">Канал (MAX, Telegram) и номер, с которого пишешь</td></tr><tr><td data-label="Что видишь">«Канал не в подписке, добавьте его в подписку»</td><td data-label="Что написать">Номер канала + скриншот</td></tr><tr><td data-label="Что видишь">Твой MAX или Telegram в бане: спам-ошибка со всеми клиентами</td><td data-label="Что написать">«Мой номер в спаме, дайте общий» + город</td></tr><tr><td data-label="Что видишь">Статус «Не авторизирован» или выкинуло из MAX</td><td data-label="Что написать">Номер + скриншот</td></tr><tr><td data-label="Что видишь">Нужен свой номер или доступ к общему WhatsApp / MAX / Telegram</td><td data-label="Что написать">Какой канал и для чего</td></tr><tr><td data-label="Что видишь">Нужна переписка с номера коллеги</td><td data-label="Что написать">Ссылка на сделку + чей номер</td></tr><tr><td data-label="Что видишь">Пропали почти все чаты сразу</td><td data-label="Что написать">Скриншот + ссылка на 1–2 сделки для примера</td></tr></tbody></table></div>
+<ol class="steps"><li><strong>Не знаешь, чей клиент:</strong> номер + имя + «чей клиент?» с отметкой @Все. Владелец сделки отзовётся и переведёт или перезвонит.</li></ol></div>
+<div class="block plain"><h2>Очередь в «Департаменте продаж»</h2><ul><li>Получил заявку — идёт таймер «До возврата в очередь». Готов раньше: нажми <strong>«Встать в очередь сейчас»</strong>, встанешь в конец.</li><li>Уходишь на время: «Уйти из очереди». Конец дня: «Выйти из очереди и закончить рабочий день».</li><li>Очередь не двигается дольше обычного или «Департамент продаж» не открывается: спроси коллег в чате «у всех так?» и отметь администратора.</li></ul>
+<figure><button class="zoom" type="button" data-src="img/ochered_departament.png" aria-label="Увеличить"><img src="img/ochered_departament.png" alt="Очередь в приложении «Департамент продаж»" decoding="async"></button><figcaption>Очередь в приложении «Департамент продаж»</figcaption></figure></div>
+<div class="block plain"><h2>Забыл завершить смену</h2><p>Исправляется самому: в виджете рабочего дня нажми <strong>карандаш рядом со временем</strong> и измени время окончания. Так посоветовал коллега 24.10, проверено.</p>
+<figure><button class="zoom" type="button" data-src="img/smena_karandash.png" aria-label="Увеличить"><img src="img/smena_karandash.png" alt="Виджет смены: карандаш рядом со временем" decoding="async"></button><figcaption>Виджет смены: карандаш рядом со временем</figcaption></figure></div>
+<div class="block plain"><h2>Банк лидов пустой или сделка пропала</h2><ul><li>Банк вдруг пустой: обнови страницу, Битрикс иногда тормозит.</li><li>Взял заявку, а она исчезла: скорее всего, её уже забрал коллега или это дубль.</li><li>Пришло уведомление о новом лиде, а при открытии «нет прав»: это уже вопрос администратора.</li></ul></div>
+<div class="block plain"><h2>Телефония</h2><ul><li>Сразу разъединяет или нет входящих: спроси в чате, у всех ли так. У всех — одно сообщение со скриншотом ошибки, остальные ставят «+». Только у тебя — отметь администратора.</li><li>Долго нет ответа, а ситуация срочная: звони Арсению на мобильный (его просьба от 13.10).</li></ul></div></section>
+<section data-id="admin" data-title="10. Только администратор"><header class="sec-head"><div class="sec-ico"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg></div><div><div class="eyebrow">Раздел 10</div><h1>Только администратор</h1></div></header>
+<p class="lead">Эти ситуации менеджер сам не решит: нужны права в Wazzup или Битрикс24. Сразу пиши в чат с отметкой @Арсений Чумак по шаблону из раздела «Как писать в чат».</p>
+<div class="block plain"><h2>Мессенджеры и Wazzup</h2><div class="tw"><table><thead><tr><th>Что видишь</th><th>Что написать</th></tr></thead><tbody><tr><td data-label="Что видишь">«На тарифе закончились диалоги. Перейдите на другой тариф»</td><td data-label="Что написать">Канал (MAX, Telegram) и номер, с которого пишешь</td></tr><tr><td data-label="Что видишь">«Канал не в подписке, добавьте его в подписку»</td><td data-label="Что написать">Номер канала + скриншот</td></tr><tr><td data-label="Что видишь">Твой MAX или Telegram в бане: спам-ошибка со всеми клиентами</td><td data-label="Что написать">«Мой номер в спаме, дайте общий» + город</td></tr><tr><td data-label="Что видишь">Статус «Не авторизирован» или выкинуло из MAX</td><td data-label="Что написать">Номер + скриншот</td></tr><tr><td data-label="Что видишь">Нужен свой номер или доступ к общему WhatsApp / MAX / Telegram</td><td data-label="Что написать">Какой канал и для чего</td></tr><tr><td data-label="Что видишь">Нужна переписка с номера коллеги</td><td data-label="Что написать">Ссылка на сделку + чей номер</td></tr><tr><td data-label="Что видишь">Пропали почти все чаты сразу</td><td data-label="Что написать">Скриншот + ссылка на 1–2 сделки для примера</td></tr></tbody></table></div>
 <p><strong>Как выглядит «закончились диалоги»:</strong> надпись в поле ввода внизу чата.</p>
-<figure><a href="img/oshibka_tarif_tg.png" target="_blank"><img src="img/oshibka_tarif_tg.png" alt="Поле ввода: «На тарифе закончились диалоги»" loading="lazy"></a><figcaption>Поле ввода: «На тарифе закончились диалоги»</figcaption></figure>
+<figure><button class="zoom" type="button" data-src="img/oshibka_tarif_tg.png" aria-label="Увеличить"><img src="img/oshibka_tarif_tg.png" alt="Поле ввода: «На тарифе закончились диалоги»" decoding="async"></button><figcaption>Поле ввода: «На тарифе закончились диалоги»</figcaption></figure>
 <p><strong>Как выглядит «Канал не в подписке»:</strong></p>
-<figure><a href="img/oshibka_ne_v_podpiske.png" target="_blank"><img src="img/oshibka_ne_v_podpiske.png" alt="Поле ввода: «Канал не в подписке, добавьте его в подписку»" loading="lazy"></a><figcaption>Поле ввода: «Канал не в подписке, добавьте его в подписку»</figcaption></figure>
-<h2>CRM и телефония</h2>
-<ul><li>Нет прав к сделке, лид пришёл и сразу ушёл, в сделке нельзя ничего поменять.</li><li>Дубль с оригиналом в чужой воронке.</li><li>Удалить тестовую сделку, сделку с номером сотрудника или лид без единого контакта.</li><li>Статистика показывает просрочку, хотя сделка взята вовремя.</li><li>Не идут входящие только тебе (например, ты ещё в отделе стажёров).</li><li>Нужен новый источник в CRM (например, «рамки на номерах») или шаблон сообщения.</li></ul>
-<h2>Не к администратору</h2>
-<ul><li><strong>Ошибки в объявлениях на Авито и Дроме</strong> (фото не того авто, неверный адрес, цена): ссылка + что не так, отметь Ольгу Долгополову и Артёма Крамаренко.</li><li><strong>Перевести сделку, сменить ответственного:</strong> раздел «Звонки, очередь, смена».</li></ul></section>
-<section id="howto" data-title="11. Как писать в чат"><h1>Как писать в чат «срм/маркетинг обращения/дубли»</h1>
-<p>Одно сообщение со ссылкой, сутью и скриншотом решается в разы быстрее, чем три сообщения с «@Арсений». В чате больше 40 менеджеров и один интегратор.</p>
-<h2>Шаблон сообщения</h2>
-<div class="tpl"><pre>&lt;ссылка на сделку&gt;
+<figure><button class="zoom" type="button" data-src="img/oshibka_ne_v_podpiske.png" aria-label="Увеличить"><img src="img/oshibka_ne_v_podpiske.png" alt="Поле ввода: «Канал не в подписке, добавьте его в подписку»" decoding="async"></button><figcaption>Поле ввода: «Канал не в подписке, добавьте его в подписку»</figcaption></figure></div>
+<div class="block plain"><h2>CRM и телефония</h2><ul><li>Нет прав к сделке, лид пришёл и сразу ушёл, в сделке нельзя ничего поменять.</li><li>Дубль с оригиналом в чужой воронке.</li><li>Удалить тестовую сделку, сделку с номером сотрудника или лид без единого контакта.</li><li>Статистика показывает просрочку, хотя сделка взята вовремя.</li><li>Не идут входящие только тебе (например, ты ещё в отделе стажёров).</li><li>Нужен новый источник в CRM (например, «рамки на номерах») или шаблон сообщения.</li></ul></div>
+<div class="block plain"><h2>Не к администратору</h2><ul><li><strong>Ошибки в объявлениях на Авито и Дроме</strong> (фото не того авто, неверный адрес, цена): ссылка + что не так, отметь Ольгу Долгополову и Артёма Крамаренко.</li><li><strong>Перевести сделку, сменить ответственного:</strong> раздел «Звонки, очередь, смена».</li></ul></div></section>
+<section data-id="howto" data-title="11. Как писать в чат"><header class="sec-head"><div class="sec-ico"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13 7l4 4"/></svg></div><div><div class="eyebrow">Раздел 11</div><h1>Как писать в чат «срм/маркетинг обращения/дубли»</h1></div></header>
+<p class="lead">Одно сообщение со ссылкой, сутью и скриншотом решается в разы быстрее, чем три сообщения с «@Арсений». В чате больше 40 менеджеров и один интегратор.</p>
+<div class="block plain"><h2>Шаблон сообщения</h2><div class="tpl"><div class="tpl-head"><span>Шаблон сообщения</span><button class="copy" type="button">Скопировать</button></div><pre>&lt;ссылка на сделку&gt;
 что случилось: не уходит сообщение в MAX с номера ...
 что уже проверил: клиент находится по номеру, добавил в контакты
-@ответственный + скриншот ошибки</pre><button class="copy" type="button">Скопировать</button></div>
-<h2>Кого отмечать</h2>
-<div class="tw"><table><thead><tr><th>Вопрос</th><th>Кого</th></tr></thead><tbody><tr><td data-label="Вопрос">CRM, Wazzup, мессенджеры, телефония, доступы</td><td data-label="Кого">@Арсений Чумак</td></tr><tr><td data-label="Вопрос">Перевести заявку, сменить ответственного</td><td data-label="Кого">@Герман Силенко</td></tr><tr><td data-label="Вопрос">Объявления, реклама, спам-номера, пустые лиды с площадок</td><td data-label="Кого">@Ольга Долгополова, @Артём Крамаренко</td></tr><tr><td data-label="Вопрос">Чей клиент / чей дубль</td><td data-label="Кого">@Все</td></tr><tr><td data-label="Вопрос">Вакансии и кандидаты</td><td data-label="Кого">Рита Селезнёва, напрямую</td></tr></tbody></table></div>
-<h2>Правила чата</h2>
-<ul><li><strong>Вопросы по CRM — только сюда, не в личку</strong> (Самир, 12.10 и 2.11). Исключение: если Арсений сам просит прислать ссылку в личные.</li><li><strong>Одна проблема = одно сообщение.</strong> Не повторяй тег через 5 минут.</li><li><strong>Сбой у всех</strong> (телефония, Wazzup): один пишет, остальные ставят «+» или реакцию. Руководитель техотдела 13.10: «У нас 40 менеджеров, вы представьте, если сейчас все здесь спамить начнут».</li><li><strong>Прочитал ответ — поставь реакцию</strong>, чтобы было видно, что вопрос закрыт.</li><li><strong>Срочно и долго нет ответа:</strong> звони Арсению на мобильный или пиши своему руководителю.</li><li><strong>Спам и нецелевые сюда не пишем</strong> — их закрываешь сам (раздел «Нецелевые и спам»).</li></ul></section>
-<div class="pager"><a id="prev" href="#"><span>Назад</span><b></b></a><a id="next" class="next" href="#"><span>Дальше</span><b></b></a></div>
+@ответственный + скриншот ошибки</pre></div></div>
+<div class="block plain"><h2>Кого отмечать</h2><div class="tw"><table><thead><tr><th>Вопрос</th><th>Кого</th></tr></thead><tbody><tr><td data-label="Вопрос">CRM, Wazzup, мессенджеры, телефония, доступы</td><td data-label="Кого">@Арсений Чумак</td></tr><tr><td data-label="Вопрос">Перевести заявку, сменить ответственного</td><td data-label="Кого">@Герман Силенко</td></tr><tr><td data-label="Вопрос">Объявления, реклама, спам-номера, пустые лиды с площадок</td><td data-label="Кого">@Ольга Долгополова, @Артём Крамаренко</td></tr><tr><td data-label="Вопрос">Чей клиент / чей дубль</td><td data-label="Кого">@Все</td></tr><tr><td data-label="Вопрос">Вакансии и кандидаты</td><td data-label="Кого">Рита Селезнёва, напрямую</td></tr></tbody></table></div></div>
+<div class="block plain"><h2>Правила чата</h2><ul><li><strong>Вопросы по CRM — только сюда, не в личку</strong> (Самир, 12.10 и 2.11). Исключение: если Арсений сам просит прислать ссылку в личные.</li><li><strong>Одна проблема = одно сообщение.</strong> Не повторяй тег через 5 минут.</li><li><strong>Сбой у всех</strong> (телефония, Wazzup): один пишет, остальные ставят «+» или реакцию. Руководитель техотдела 13.10: «У нас 40 менеджеров, вы представьте, если сейчас все здесь спамить начнут».</li><li><strong>Прочитал ответ — поставь реакцию</strong>, чтобы было видно, что вопрос закрыт.</li><li><strong>Срочно и долго нет ответа:</strong> звони Арсению на мобильный или пиши своему руководителю.</li><li><strong>Спам и нецелевые сюда не пишем</strong> — их закрываешь сам (раздел «Нецелевые и спам»).</li></ul></div></section>
+<div class="pager"><a id="prev" href="#"><span>← Назад</span><b></b></a><a id="next" class="next" href="#"><span>Дальше →</span><b></b></a></div>
 </main>
 </div>
+<div class="lightbox" id="lb"><img alt=""></div>
 <script>
 const secs=[...document.querySelectorAll('section')], links=[...document.querySelectorAll('#nav a')];
+const norm=s=>s.toLowerCase().replace(/ё/g,'е');
 function show(id){
-  const s=secs.find(x=>x.id===id)||secs[0]; secs.forEach(x=>x.classList.toggle('on',x===s));
-  links.forEach(a=>a.classList.toggle('on',a.dataset.nav===s.id));
+  const s=secs.find(x=>x.dataset.id===id)||secs[0];
+  secs.forEach(x=>x.classList.toggle('on',x===s));
+  links.forEach(a=>a.classList.toggle('on',a.dataset.nav===s.dataset.id));
   document.getElementById('topTitle').textContent=s.dataset.title;
+  document.title=(s.dataset.id==='start'?'':s.dataset.title.replace(/^\d+\.\s*/,'')+' · ')+'Памятка менеджера';
   const i=secs.indexOf(s), p=secs[i-1], n=secs[i+1], P=document.getElementById('prev'), N=document.getElementById('next');
   P.hidden=!p; N.hidden=!n;
-  if(p){P.href='#'+p.id;P.querySelector('b').textContent=p.dataset.title}
-  if(n){N.href='#'+n.id;N.querySelector('b').textContent=n.dataset.title}
-  document.body.classList.remove('menu'); setTimeout(()=>window.scrollTo(0,0),0);
+  if(p){P.href='#'+p.dataset.id;P.querySelector('b').textContent=p.dataset.title}
+  if(n){N.href='#'+n.dataset.id;N.querySelector('b').textContent=n.dataset.title}
+  document.body.classList.remove('menu');
+  setTimeout(()=>window.scrollTo(0,0),0);
 }
 window.addEventListener('hashchange',()=>show(location.hash.slice(1)));
 show(location.hash.slice(1));
 document.getElementById('menuBtn').onclick=()=>document.body.classList.toggle('menu');
+// sidebar search
 document.getElementById('q').addEventListener('input',e=>{
-  const q=e.target.value.trim().toLowerCase();
-  links.forEach(a=>{const s=secs.find(x=>x.id===a.dataset.nav); a.classList.toggle('hide', !!q && !s.textContent.toLowerCase().includes(q));});
+  const q=norm(e.target.value.trim());
+  links.forEach(a=>{const s=secs.find(x=>x.dataset.id===a.dataset.nav); a.classList.toggle('hide',!!q&&!norm(s.textContent).includes(q));});
 });
+// start page search
+const q2=document.getElementById('q2');
+if(q2){
+  const box=document.createElement('div'); box.className='results'; q2.parentNode.after(box);
+  const groups=[...document.querySelectorAll('[data-id=start] .group, [data-id=start] .block')];
+  q2.addEventListener('input',()=>{
+    const q=norm(q2.value.trim());
+    groups.forEach(g=>g.classList.toggle('hidden-by-search',!!q));
+    box.classList.toggle('on',!!q); box.innerHTML='';
+    if(!q) return;
+    const hits=secs.filter(s=>s.dataset.id!=='start'&&norm(s.textContent).includes(q));
+    hits.forEach(s=>{const a=links.find(l=>l.dataset.nav===s.dataset.id).cloneNode(true); a.classList.remove('on','hide'); box.appendChild(a);});
+    if(!hits.length) box.innerHTML='<div class="none">Ничего не нашлось. Попробуй другое слово или открой раздел «Как писать в чат».</div>';
+  });
+}
+// copy buttons
 document.querySelectorAll('.copy').forEach(b=>b.onclick=async()=>{
-  try{await navigator.clipboard.writeText(b.previousElementSibling.textContent); b.textContent='Скопировано'; b.classList.add('done'); setTimeout(()=>{b.textContent='Скопировать'; b.classList.remove('done')},1500)}catch(e){}
+  const t=b.closest('.tpl').querySelector('pre').textContent;
+  try{await navigator.clipboard.writeText(t)}catch(e){const r=document.createRange();r.selectNodeContents(b.closest('.tpl').querySelector('pre'));const s=getSelection();s.removeAllRanges();s.addRange(r);document.execCommand('copy');s.removeAllRanges();}
+  b.textContent='Скопировано'; b.classList.add('done'); setTimeout(()=>{b.textContent='Скопировать'; b.classList.remove('done')},1500);
 });
+// lightbox
+const lb=document.getElementById('lb');
+document.querySelectorAll('.zoom').forEach(z=>z.onclick=()=>{lb.querySelector('img').src=z.dataset.src; lb.classList.add('on')});
+lb.onclick=()=>lb.classList.remove('on');
+document.addEventListener('keydown',e=>{if(e.key==='Escape')lb.classList.remove('on')});
+// load every screenshot up front, so images in hidden sections are ready when opened
+window.addEventListener('load',()=>document.querySelectorAll('section img').forEach(i=>{const p=new Image(); p.src=i.currentSrc||i.src;}));
 </script>
 </body>
 </html>

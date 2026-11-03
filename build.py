@@ -65,51 +65,153 @@ def blocks(md):
     return out
 
 
+ICONS = {
+ "start": '<path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>',
+ "wazzup": '<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.9A8 8 0 1 1 21 12z"/>',
+ "max": '<circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/>',
+ "tg": '<path d="M21 4L3 11l6 2 2 6 3-4 5 4z"/><path d="M9 13l7-5"/>',
+ "chats": '<path d="M4 5h16v11H8l-4 4z"/><path d="M8 9h8M8 12h5"/>',
+ "files": '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M10 9l5 3-5 3z"/>',
+ "nonumber": '<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a1 1 0 0 1-1 1A16 16 0 0 1 4 5a1 1 0 0 1 1-1z"/><path d="M3 3l18 18"/>',
+ "spam": '<circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/>',
+ "dupes": '<rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3"/>',
+ "calls": '<circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2M9 2h6"/>',
+ "admin": '<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/>',
+ "howto": '<path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13 7l4 4"/>',
+}
+
+
+def icon(sid, cls="ico"):
+    return f'<svg class="{cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{ICONS.get(sid, ICONS["start"])}</svg>'
+
+
+PILLS = {"Сам": "self", "Администратор": "admin", "Чат": "chat", "Сам, если оригинал доступен": "self"}
+
+
 def inline_html(text):
     t = html.escape(text, quote=False)
     t = re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", t)
+    t = re.sub(r"«(@[^»]+)»", r"«\1»", t)
 
     def link(m):
         label, url = m.group(1), m.group(2)
         if url.startswith("#"):
-            return f'<a href="{url}" data-nav="{url[1:]}">{label}</a>'
+            return f'<a href="{url}">{label}</a>'
         return f'<a href="{url}" target="_blank" rel="noopener">{label}</a>'
     return re.sub(r"\[(.+?)\]\((.+?)\)", link, t)
 
 
-def section_html(sec):
-    parts = []
-    for kind, val in blocks(sec["body"]):
-        if kind == "h1":
-            parts.append(f"<h1>{inline_html(val)}</h1>")
-        elif kind == "h2":
-            parts.append(f"<h2>{inline_html(val)}</h2>")
-        elif kind == "p":
-            cls = ' class="example"' if val.startswith("**Пример") or val.startswith("**Частая") or val.startswith("**Примеры") else ""
-            parts.append(f"<p{cls}>{inline_html(val)}</p>")
-        elif kind in ("ul", "ol"):
-            items = "".join(f"<li>{inline_html(x)}</li>" for x in val)
-            parts.append(f"<{kind}>{items}</{kind}>")
-        elif kind == "check":
-            items = "".join(f'<li><label><input type="checkbox"> <span>{inline_html(x)}</span></label></li>' for x in val)
-            parts.append(f'<ul class="check">{items}</ul>')
-        elif kind == "code":
-            parts.append(f'<div class="tpl"><pre>{html.escape(val)}</pre><button class="copy" type="button">Скопировать</button></div>')
-        elif kind == "img":
-            alt, src = val
-            parts.append(f'<figure><a href="{src}" target="_blank"><img src="{src}" alt="{html.escape(alt)}" loading="lazy"></a><figcaption>{html.escape(alt)}</figcaption></figure>')
-        elif kind == "table":
-            head = "".join(f"<th>{inline_html(c)}</th>" for c in val[0])
-            rows = "".join("<tr>" + "".join(f'<td data-label="{html.escape(val[0][k])}">{inline_html(c)}</td>' for k, c in enumerate(r)) + "</tr>" for r in val[1:])
-            parts.append(f'<div class="tw"><table><thead><tr>{head}</tr></thead><tbody>{rows}</tbody></table></div>')
-    return "\n".join(parts)
+def cell_html(text):
+    if text in PILLS:
+        return f'<span class="pill {PILLS[text]}">{html.escape(text)}</span>'
+    return inline_html(text)
+
+
+def block_html(kind, val, ctx):
+    if kind == "p":
+        if re.match(r"\*\*(Пример|Примеры|Частая ошибка)", val):
+            m = re.match(r"\*\*(.+?)\*\*\s*(.*)", val)
+            return f'<blockquote class="example"><div class="ex-label">{icon("chats","ex-ico")}{inline_html(m.group(1).rstrip("."))}</div><p>{inline_html(m.group(2))}</p></blockquote>'
+        if val.startswith("Источник"):
+            return f'<p class="src">{inline_html(val)}</p>'
+        return f"<p>{inline_html(val)}</p>"
+    if kind in ("ul", "ol"):
+        items = "".join(f"<li>{inline_html(x)}</li>" for x in val)
+        cls = ' class="steps"' if kind == "ol" else ""
+        return f"<{kind}{cls}>{items}</{kind}>"
+    if kind == "check":
+        items = "".join(f'<li><label><input type="checkbox"><span>{inline_html(x)}</span></label></li>' for x in val)
+        return f'<ul class="check">{items}</ul>'
+    if kind == "code":
+        return f'<div class="tpl"><div class="tpl-head"><span>Шаблон сообщения</span><button class="copy" type="button">Скопировать</button></div><pre>{html.escape(val)}</pre></div>'
+    if kind == "img":
+        alt, src = val
+        return f'<figure><button class="zoom" type="button" data-src="{src}" aria-label="Увеличить"><img src="{src}" alt="{html.escape(alt)}" decoding="async"></button><figcaption>{html.escape(alt)}</figcaption></figure>'
+    if kind == "table":
+        head = "".join(f"<th>{inline_html(c)}</th>" for c in val[0])
+        rows = "".join("<tr>" + "".join(f'<td data-label="{html.escape(val[0][k])}">{cell_html(c)}</td>' for k, c in enumerate(r)) + "</tr>" for r in val[1:])
+        return f'<div class="tw"><table><thead><tr>{head}</tr></thead><tbody>{rows}</tbody></table></div>'
+    return ""
+
+
+def h2_kind(title):
+    t = title.lower()
+    if t.startswith("сделай сам"):
+        return "do"
+    if t.startswith("пиши в чат") or t.startswith("контакта нет"):
+        return "warn"
+    if t.startswith("как выглядит"):
+        return "look"
+    return "plain"
+
+
+def section_html(sec, sections):
+    bl = blocks(sec["body"])
+    out, lead, title = [], "", ""
+    if bl and bl[0][0] == "h1":
+        title = bl[0][1]; bl = bl[1:]
+    if bl and bl[0][0] == "p":
+        lead = bl[0][1]; bl = bl[1:]
+    num = sec["title"].split(".")[0] if sec["id"] != "start" else ""
+    out.append(f'<header class="sec-head"><div class="sec-ico">{icon(sec["id"])}</div><div>'
+               + (f'<div class="eyebrow">Раздел {num}</div>' if num else '<div class="eyebrow">Памятка менеджера</div>')
+               + f'<h1>{inline_html(title)}</h1></div></header>')
+    if lead:
+        out.append(f'<p class="lead">{inline_html(lead)}</p>')
+    if sec["id"] == "start":
+        out.append(start_cards(bl, sections))
+        return "\n".join(out)
+    groups, cur = [], None
+    for kind, val in bl:
+        if kind == "h2":
+            cur = {"title": val, "items": []}; groups.append(cur)
+        else:
+            if cur is None:
+                cur = {"title": None, "items": []}; groups.append(cur)
+            cur["items"].append((kind, val))
+    for g in groups:
+        k = h2_kind(g["title"]) if g["title"] else "plain"
+        inner = "\n".join(block_html(a, b, k) for a, b in g["items"])
+        head = ""
+        if g["title"]:
+            badge = {"do": '<span class="tag self">Сделай сам</span>', "warn": '<span class="tag admin">Когда в чат</span>'}.get(k, "")
+            head = f'<h2>{inline_html(g["title"])}{badge}</h2>'
+        out.append(f'<div class="block {k}">{head}{inner}</div>')
+    return "\n".join(out)
+
+
+def start_cards(bl, sections):
+    titles = {s["id"]: s["title"].split(". ", 1)[-1] for s in sections}
+    table = next(v for k, v in bl if k == "table")
+    groups = {"self": [], "chat": [], "admin": []}
+    for row in table[1:]:
+        sit, who, link = row
+        sid = re.search(r"\(#(\w+)\)", link).group(1)
+        kind = "admin" if who == "Администратор" else "chat" if who == "Чат" else "self"
+        note = "" if who in ("Сам", "Чат", "Администратор") else f'<span class="note">{html.escape(who)}</span>'
+        groups[kind].append(f'<a class="card {kind}" href="#{sid}"><span class="card-ico">{icon(sid)}</span><span class="card-body"><span class="card-sit">{inline_html(sit)}</span><span class="card-sec">{html.escape(titles[sid])} →</span>{note}</span></a>')
+    names = {"self": ("Решаешь сам", "1–2 минуты, без чата"), "chat": ("Нужен коллега", "одно сообщение в чат"), "admin": ("Только администратор", "сразу в чат с отметкой")}
+    out = ['<div class="search-hero"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="q2" type="search" placeholder="Что случилось? Например: спам, дубль, тариф, видео" autocomplete="off"></div>']
+    for k in ("self", "chat", "admin"):
+        if groups[k]:
+            out.append(f'<div class="group"><div class="group-head"><span class="dot {k}"></span><b>{names[k][0]}</b><span>{names[k][1]}</span></div><div class="cards">{"".join(groups[k])}</div></div>')
+    rest = [(k, v) for k, v in bl if k != "table"]
+    gi, cur = [], None
+    for kind, val in rest:
+        if kind == "h2":
+            cur = {"title": val, "items": []}; gi.append(cur)
+        elif cur:
+            cur["items"].append((kind, val))
+    for g in gi:
+        out.append(f'<div class="block plain"><h2>{inline_html(g["title"])}</h2>' + "".join(block_html(a, b, "plain") for a, b in g["items"]) + "</div>")
+    return "\n".join(out)
 
 
 def build_site(sections):
     nav = "\n".join(
-        f'<a href="#{s["id"]}" data-nav="{s["id"]}">{html.escape(s["title"])}</a>' for s in sections)
+        f'<a href="#{s["id"]}" data-nav="{s["id"]}">{icon(s["id"])}<span>{html.escape(s["title"])}</span></a>' for s in sections)
     body = "\n".join(
-        f'<section id="{s["id"]}" data-title="{html.escape(s["title"])}">{section_html(s)}</section>' for s in sections)
+        f'<section data-id="{s["id"]}" data-title="{html.escape(s["title"])}">{section_html(s, sections)}</section>' for s in sections)
     tpl = (ROOT / "template.html").read_text(encoding="utf-8")
     (ROOT / "index.html").write_text(tpl.replace("{{NAV}}", nav).replace("{{BODY}}", body), encoding="utf-8")
 
