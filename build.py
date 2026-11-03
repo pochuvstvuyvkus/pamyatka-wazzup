@@ -232,7 +232,22 @@ def build_site(sections):
     body = "\n".join(
         f'<section data-id="{s["id"]}" data-title="{html.escape(s["title"])}">{section_html(s, sections)}</section>' for s in sections)
     tpl = (ROOT / "template.html").read_text(encoding="utf-8")
-    (ROOT / "index.html").write_text(tpl.replace("{{NAV}}", nav).replace("{{BODY}}", body), encoding="utf-8")
+    (ROOT / "page.html").write_text(tpl.replace("{{NAV}}", nav).replace("{{BODY}}", body), encoding="utf-8")
+    (ROOT / "index.html").write_text(SHELL, encoding="utf-8")
+
+
+# index.html never changes: it always fetches the latest page.html past the browser cache
+SHELL = """<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow"><title>Памятка менеджера: Wazzup и CRM</title>
+<style>body{margin:0;font:16px -apple-system,BlinkMacSystemFont,Arial,sans-serif;background:#f4f6f5;color:#6b7a73;display:grid;place-items:center;height:100vh}</style>
+</head><body>Загружаю памятку…
+<script>
+fetch('page.html?t=' + Date.now(), {cache: 'no-store'}).then(function (r) { return r.text(); }).then(function (h) {
+  document.open(); document.write(h); document.close();
+}).catch(function () { location.replace('page.html'); });
+</script></body></html>
+"""
 
 
 # ---------- DOCX ----------
