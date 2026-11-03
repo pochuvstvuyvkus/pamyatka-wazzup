@@ -15,6 +15,9 @@ def parse_sections():
     return sections
 
 
+OL_START = {}
+
+
 def blocks(md):
     """Split markdown into simple blocks: h1, h2, p, ul, ol, check, table, code, img."""
     lines = md.split("\n")
@@ -56,9 +59,12 @@ def blocks(md):
                 items.append(lines[i][2:]); i += 1
             out.append(("ul", items))
         elif re.match(r"\d+\. ", line):
+            start_n = int(re.match(r"(\d+)\. ", line).group(1))
             items = []
             while i < len(lines) and re.match(r"\d+\. ", lines[i]):
                 items.append(re.sub(r"^\d+\. ", "", lines[i])); i += 1
+            if start_n != 1:
+                OL_START[id(items)] = start_n
             out.append(("ol", items))
         else:
             out.append(("p", line)); i += 1
@@ -118,6 +124,9 @@ def block_html(kind, val, ctx):
     if kind in ("ul", "ol"):
         items = "".join(f"<li>{inline_html(x)}</li>" for x in val)
         cls = ' class="steps"' if kind == "ol" else ""
+        st = OL_START.get(id(val))
+        if kind == "ol" and st:
+            cls += f' start="{st}" style="counter-reset:s {st - 1}"'
         return f"<{kind}{cls}>{items}</{kind}>"
     if kind == "check":
         items = "".join(f'<li><label><input type="checkbox"><span>{inline_html(x)}</span></label></li>' for x in val)
@@ -171,7 +180,17 @@ def section_html(sec, sections):
             cur["items"].append((kind, val))
     for g in groups:
         k = h2_kind(g["title"]) if g["title"] else "plain"
-        inner = "\n".join(block_html(a, b, k) for a, b in g["items"])
+        parts, items, j = [], g["items"], 0
+        while j < len(items):
+            a, v = items[j]
+            if a == "p" and re.fullmatch(r"\*\*(Примеры[^*]*)\*\*", v) and j + 1 < len(items) and items[j + 1][0] == "ul":
+                lab = re.fullmatch(r"\*\*(.+?)\*\*", v).group(1).rstrip(".")
+                lis = "".join(f"<li>{inline_html(x)}</li>" for x in items[j + 1][1])
+                parts.append(f'<blockquote class="example"><div class="ex-label">{icon("chats","ex-ico")}{inline_html(lab)}</div><ul>{lis}</ul></blockquote>')
+                j += 2
+                continue
+            parts.append(block_html(a, v, k)); j += 1
+        inner = "\n".join(parts)
         head = ""
         if g["title"]:
             badge = {"do": '<span class="tag self">Сделай сам</span>', "warn": '<span class="tag admin">Когда в чат</span>'}.get(k, "")
