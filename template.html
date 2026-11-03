@@ -24,7 +24,7 @@ nav a.on{background:var(--accent-soft);color:var(--accent);font-weight:600}
 nav a.hide{display:none}
 .hint{color:var(--muted);font-size:13px;margin:14px 8px 0}
 main{padding:32px clamp(16px,4vw,56px) 80px;max-width:980px;width:100%}
-section{display:none;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:28px clamp(16px,3vw,36px);box-shadow:var(--shadow)}
+section{scroll-margin-top:70px;display:none;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:28px clamp(16px,3vw,36px);box-shadow:var(--shadow)}
 section.on{display:block}
 h1{font-size:clamp(24px,3vw,30px);line-height:1.2;margin:0 0 12px}
 h1+p{font-size:17px;color:var(--muted)}
@@ -96,7 +96,7 @@ function show(id){
   P.hidden=!p; N.hidden=!n;
   if(p){P.href='#'+p.id;P.querySelector('b').textContent=p.dataset.title}
   if(n){N.href='#'+n.id;N.querySelector('b').textContent=n.dataset.title}
-  document.body.classList.remove('menu'); window.scrollTo(0,0);
+  document.body.classList.remove('menu'); setTimeout(()=>window.scrollTo(0,0),0);
 }
 window.addEventListener('hashchange',()=>show(location.hash.slice(1)));
 show(location.hash.slice(1));
