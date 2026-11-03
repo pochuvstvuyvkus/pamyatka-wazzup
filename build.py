@@ -239,7 +239,8 @@ def build_site(sections):
 # index.html never changes: it always fetches the latest page.html past the browser cache
 SHELL = """<!doctype html>
 <html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="robots" content="noindex, nofollow"><title>Памятка менеджера: Wazzup и CRM</title>
+<meta name="robots" content="noindex, nofollow"><meta name="theme-color" content="#0f7a52"><title>Памятка менеджера: Wazzup и CRM</title>
+<link rel="icon" href="favicon.ico" sizes="any"><link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="manifest" href="manifest.webmanifest">
 <style>body{margin:0;font:16px -apple-system,BlinkMacSystemFont,Arial,sans-serif;background:#f4f6f5;color:#6b7a73;display:grid;place-items:center;height:100vh}</style>
 </head><body>Загружаю памятку…
 <script>
