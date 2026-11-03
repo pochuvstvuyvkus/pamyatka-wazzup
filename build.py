@@ -244,11 +244,21 @@ SHELL = """<!doctype html>
 <meta name="robots" content="noindex, nofollow"><meta name="theme-color" content="#0f7a52"><title>Памятка менеджера: Wazzup и CRM</title>
 <link rel="icon" href="favicon.ico" sizes="any"><link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="manifest" href="manifest.webmanifest">
 <style>body{margin:0;font:16px -apple-system,BlinkMacSystemFont,Arial,sans-serif;background:#f4f6f5;color:#6b7a73;display:grid;place-items:center;height:100vh}</style>
-</head><body>Загружаю памятку…
+<noscript><meta http-equiv="refresh" content="0;url=page.html"></noscript>
+</head><body><a href="page.html" style="color:inherit">Загружаю памятку…</a>
 <script>
-fetch('page.html?t=' + Date.now(), {cache: 'no-store'}).then(function (r) { return r.text(); }).then(function (h) {
-  document.open(); document.write(h); document.close();
-}).catch(function () { location.replace('page.html'); });
+(function () {
+  var done = false, hash = location.hash;
+  function fallback() { if (!done) { done = true; location.replace('page.html' + hash); } }
+  setTimeout(fallback, 8000);
+  if (!window.fetch) { fallback(); return; }
+  fetch('page.html?t=' + Date.now(), {cache: 'no-store'}).then(function (r) {
+    if (!r.ok) throw new Error(r.status); return r.text();
+  }).then(function (h) {
+    if (done || h.indexOf('<section') < 0) throw new Error('bad page');
+    done = true; document.open(); document.write(h); document.close();
+  }).catch(fallback);
+})();
 </script></body></html>
 """
 
@@ -367,8 +377,27 @@ def build_docx(sections):
     doc.save(ROOT / "Памятка менеджера Wazzup и CRM.docx")
 
 
+def check(sections):
+    """Stop the build if a section link or a screenshot is broken, so a broken page is never published."""
+    ids = {s["id"] for s in sections}
+    errors = []
+    for s in sections:
+        for m in re.finditer(r"\]\(#(\w+)\)", s["body"]):
+            if m.group(1) not in ids:
+                errors.append(f"{s['id']}: ссылка на несуществующий раздел #{m.group(1)}")
+        for m in re.finditer(r"!\[.*?\]\((.+?)\)", s["body"]):
+            if not (ROOT / m.group(1)).is_file():
+                errors.append(f"{s['id']}: нет файла {m.group(1)}")
+    for f in ("favicon.svg", "favicon.ico", "apple-touch-icon.png", "manifest.webmanifest", ".nojekyll"):
+        if not (ROOT / f).is_file():
+            errors.append(f"нет файла {f}")
+    if errors:
+        raise SystemExit("Сборка остановлена:\n" + "\n".join(errors))
+
+
 if __name__ == "__main__":
     secs = parse_sections()
+    check(secs)
     build_site(secs)
     build_docx(secs)
     print("built", len(secs), "sections")
