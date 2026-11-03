@@ -181,7 +181,7 @@ ul.check input:checked+span{color:var(--muted);text-decoration:line-through}
 <div class="top"><button type="button" id="menuBtn"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>Разделы</button><b id="topTitle">Памятка менеджера</b><button type="button" class="tt" id="ttBtn" aria-label="Сменить тему"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg></button></div>
 <div class="layout">
 <aside>
- <a class="brand" href="#start"><span class="logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 8h12M6 12h12M6 16h7"/></svg></span><span><b>Памятка менеджера</b><small>Wazzup и CRM · SILENKO</small></span></a>
+ <a class="brand" href="#"><span class="logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 8h12M6 12h12M6 16h7"/></svg></span><span><b>Памятка менеджера</b><small>Wazzup и CRM · SILENKO</small></span></a>
  <div class="sbox"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input class="search" id="q" type="search" placeholder="Поиск по памятке" autocomplete="off"></div>
  <nav id="nav">
 {{NAV}}
@@ -206,9 +206,11 @@ function show(id){
   document.title=(s.dataset.id==='start'?'':s.dataset.title.replace(/^\d+\.\s*/,'')+' · ')+'Памятка менеджера';
   const i=secs.indexOf(s), p=secs[i-1], n=secs[i+1], P=document.getElementById('prev'), N=document.getElementById('next');
   P.hidden=!p; N.hidden=!n;
-  const fill=(A,x)=>{A.href='#'+x.dataset.id;A.querySelector('b').textContent=x.dataset.title.replace(/^\d+\.\s*/,'');const ic=links.find(l=>l.dataset.nav===x.dataset.id).querySelector('svg');A.querySelector('.pi').innerHTML=ic?ic.outerHTML:'';};
+  const fill=(A,x)=>{A.href=x.dataset.id==='start'?'#':'#'+x.dataset.id;A.querySelector('b').textContent=x.dataset.title.replace(/^\d+\.\s*/,'');const ic=links.find(l=>l.dataset.nav===x.dataset.id).querySelector('svg');A.querySelector('.pi').innerHTML=ic?ic.outerHTML:'';};
   if(p)fill(P,p); if(n)fill(N,n);
   document.body.classList.remove('menu');
+  // keep the address clean: no ?v=… and no #start, only #section for sections
+  history.replaceState(null,'',location.pathname+(s.dataset.id==='start'?'':'#'+s.dataset.id));
   setTimeout(()=>window.scrollTo(0,0),0);
 }
 window.addEventListener('hashchange',()=>show(location.hash.slice(1)));

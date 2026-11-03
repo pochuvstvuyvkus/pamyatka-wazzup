@@ -228,7 +228,7 @@ def start_cards(bl, sections):
 
 def build_site(sections):
     nav = "\n".join(
-        f'<a href="#{s["id"]}" data-nav="{s["id"]}">{icon(s["id"])}<span>{html.escape(s["title"])}</span></a>' for s in sections)
+        f'<a href="{"#" if s["id"] == "start" else "#" + s["id"]}" data-nav="{s["id"]}">{icon(s["id"])}<span>{html.escape(s["title"])}</span></a>' for s in sections)
     body = "\n".join(
         f'<section data-id="{s["id"]}" data-title="{html.escape(s["title"])}">{section_html(s, sections)}</section>' for s in sections)
     tpl = (ROOT / "template.html").read_text(encoding="utf-8")
