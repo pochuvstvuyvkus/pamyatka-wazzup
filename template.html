@@ -174,6 +174,8 @@ ul.check input:checked+span{color:var(--muted);text-decoration:line-through}
  .cards{grid-template-columns:1fr}
  .pager{flex-direction:column} .pager a{flex:1 1 auto} .pager a.next{margin-left:0}
 }
+/* long error codes like MESSAGES_CONTENT_SIZE_EXCEEDED_TELEGRAM wrap instead of overflowing */
+main, .card, h1, h2, h3, p, li, td, a { overflow-wrap: anywhere; }
 </style>
 <script>(function(){var t="light";try{t=localStorage.getItem("pamyatka-theme")||"light"}catch(e){}document.documentElement.setAttribute("data-theme",t)})();</script>
 </head>
